@@ -13,7 +13,7 @@ class UpdateCategoryRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,13 @@ class UpdateCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'ctitle'=>'required|unique:categories,ctitle,'.$this->route('category')->id,
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'ctitle.required' => 'The title field is required.'
         ];
     }
 }

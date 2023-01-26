@@ -17,7 +17,7 @@
     <!-- SEARCH FORM -->
     <form class="form-inline ml-3" action="{{ route('product.index') }}" method="get">
       <div class="input-group input-group-sm">
-        <input class="form-control form-control-navbar" value="{{ request('q') }}" type="search" name="q" placeholder="Search" aria-label="Search">
+        <input class="form-control form-control-navbar" value="{{ request('q') }}" type="search" name="q" placeholder="Search Products" aria-label="Search">
         <div class="input-group-append">
           <button class="btn btn-navbar" type="submit">
             <i class="fas fa-search"></i>
@@ -166,7 +166,7 @@
             </ul>
           </li>
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link {{ url()->current() == "http://127.0.0.1:8000/product/create" ? 'active' : ' '}}" >
+            <a href="#" class="nav-link {{ url()->current() == "http://127.0.0.1:8000/product/create" || url()->current() == "http://127.0.0.1:8000/category/create"? 'active' : ' '}}" >
               <i class="nav-icon fas fa-edit"></i>
               <p>
                 Forms
@@ -181,7 +181,7 @@
                 </a>
               </li>
               <li class="nav-item ">
-                <a href="{{ route('product.create') }}" class="nav-link {{ url()->current() == "http://127.0.0.1:8000/category/create" ? 'active' : ' '}}">
+                <a href="{{ route('category.create') }}" class="nav-link {{ url()->current() == "http://127.0.0.1:8000/category/create" ? 'active' : ' '}}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Category Create</p>
                 </a>
@@ -189,7 +189,7 @@
             </ul>
           </li>
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link {{ url()->current() == "http://127.0.0.1:8000/product" ? 'active' : ' '}}">
+            <a href="#" class="nav-link {{ url()->current() == "http://127.0.0.1:8000/product" || url()->current() == "http://127.0.0.1:8000/category"  ? 'active' : ' '}}">
               <i class="nav-icon fas fa-table"></i>
               <p>
                 Tables
@@ -201,6 +201,12 @@
                 <a href="{{ route('product.index') }}" class="nav-link {{ url()->current() == "http://127.0.0.1:8000/product" ? 'active' : ' '}}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>product List</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('category.index') }}" class="nav-link {{ url()->current() == "http://127.0.0.1:8000/category" ? 'active' : ' '}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Categories List</p>
                 </a>
               </li>
             </ul>

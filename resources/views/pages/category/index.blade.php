@@ -33,7 +33,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="">Product List</h1>
+                            <h1 class="">Category List</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -58,30 +58,21 @@
                                 <table id="example2" class="table table-bordered table-hover">
                                     <thead>
                                         <tr>
-                                            <th>Title</th>
-                                            <th>Image</th>
-                                            <th>Description</th>
-                                            <th>category</th>
-                                            <th>Price</th>
+                                            <th>id</th>
+                                            <th>title</th>
                                             <th>created</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($products as $product)
+                                        @foreach ($categories as $category)
                                             <tr>
-                                                <td>{{ $product->title }}
+                                                <td>{{ $category->id }}
                                                 </td>
-                                                <td> <img src="{{ asset('storage/' . $product->image) }}" alt=""
-                                                        width="50px" height="50px"
-                                                        onerror="this.onerror=null;this.src='{{ asset('img/cat-2.jpg') }}';">
-                                                </td>
-                                                <td>{{ Str::words($product->description, '10', '....') }}</td>
-                                                <td>{{ $product->category->ctitle }}</td>
-                                                <td>{{ $product->price }}</td>
-                                                <td>{{ $product->created_at->format('d-M-Y') }}</td>
+                                                <td>{{ $category->ctitle }}</td>
+                                                <td>{{ $category->created_at->format('d-M-Y') }}</td>
                                                 <td class=" d-flex align-items-center">
-                                                    <a href="{{ route('product.edit',$product->id) }}" class="btn btn-sm btn-success mr-2">Edit</a>
+                                                    <a href="{{ route('category.edit',$category->id) }}" class="btn btn-sm btn-success mr-2">Edit</a>
 
                                                     <!-- Button trigger modal -->
                                                     <button type="button" class="btn btn-sm btn-danger"
@@ -112,7 +103,7 @@
                                                                         class="btn btn-sm btn-secondary"
                                                                         data-dismiss="modal">Close</button>
                                                                     <form
-                                                                        action="{{ route('product.destroy', $product->id) }}"
+                                                                        action="{{ route('category.destroy', $category->id) }}"
                                                                         method="POST">
                                                                         @csrf
                                                                         @method('delete')
