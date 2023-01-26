@@ -25,6 +25,7 @@ class StoreCategoryRequest extends FormRequest
     {
         return [
             'ctitle'=>'unique:categories,ctitle|required',
+            'cimage'=>'mimes:png,jpg|required'
         ];
     }
 }

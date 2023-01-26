@@ -120,4 +120,12 @@ class ProductController extends Controller
           $product->delete();
           return back();
     }
+
+    public function search($category){
+        $products=Product::Filter($category)->get();
+        $latestProducts=Product::latest('id')->take(8)->get();
+        $categories=Category::has('products')->with('products')->get();
+  
+        return view('index',compact('products','categories','latestProducts'));
+      }
 }

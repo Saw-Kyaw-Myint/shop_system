@@ -55,6 +55,7 @@
                                 <!-- /.card-header -->
                                 <!-- form start -->
                                 <form role="form" method="post" action="{{ route('category.update',$category->id) }}"
+                                    enctype="multipart/form-data"
                                     >
                                     @csrf
                                     @method('put')
@@ -67,6 +68,20 @@
                                         </div>
 
                                         @error('ctitle')
+                                            <span class="error-message">{{ $message }}</span>
+                                        @enderror
+
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Category Image</label>
+                                            <input type="file" class="form-control p-1" id="exampleInputEmail1"
+                                                placeholder="Enter Title" name="cimage" value="{{ old('ctitle',$category->cimage) }}" onchange="loadFile(event)">
+                                        </div>
+
+                                        <img id="output" src="{{ asset('storage/'. $category->cimage) }}" class=" mb-2" alt="preview" width="150px"
+                                        height="150px"
+                                        onerror="this.onerror=null;this.src='{{ asset('img/offer-2.jpg') }}';">
+
+                                        @error('cimage')
                                             <span class="error-message">{{ $message }}</span>
                                         @enderror
 
@@ -103,7 +118,7 @@
                                 var reader = new FileReader();
                                 reader.onload = function() {
                                     var output = document.getElementById('output');
-                                    output.src = reader.result;in
+                                    output.src = reader.result;
                                 };
                                 reader.readAsDataURL(event.target.files[0]);
                             };

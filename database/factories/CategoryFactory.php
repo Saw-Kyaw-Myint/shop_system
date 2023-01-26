@@ -16,9 +16,10 @@ class CategoryFactory extends Factory
      */
     public function definition()
     {
-        
+        $postImg=['cone.jpg','ctwo.jpg','cthree.jpg','cfour.jpg'];
         return [
             'ctitle'=>fake()->text(5),
+            'cimage'=>$postImg[rand(0,3)],
         ];
     }
 }

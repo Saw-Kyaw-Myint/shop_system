@@ -24,13 +24,15 @@ class UpdateCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'ctitle'=>'required|unique:categories,ctitle,'.$this->route('category')->id,
+            'ctitle'=>'required|unique:categories,id,'.$this->route('category')->id,
+            'cimage'=>'mimes:png,jpg'
         ];
     }
     public function messages()
     {
         return [
-            'ctitle.required' => 'The title field is required.'
+            'ctitle.required' => 'The title field is required.',
+            'cimage.required' => 'The image field is required.'
         ];
     }
 }

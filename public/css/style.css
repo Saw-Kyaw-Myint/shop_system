@@ -40,7 +40,16 @@
 *::before,
 *::after {
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
+
+.whole-header{
+  position: fixed;
+  z-index: 20;
+  width: 100%;
+  top: 0;
+}
+
 
 html {
   font-family: sans-serif;
@@ -9672,6 +9681,7 @@ a.text-dark:hover, a.text-dark:focus {
 
 .product-item .product-img img {
   transition: .5s;
+  height: 300px;
 }
 
 .product-item:hover .product-img img {

@@ -24,6 +24,11 @@ class User extends Authenticatable
     ];
 
 
+    public function  scopeSearch($query,$search){
+        return $query->when($search ?? false,function ($q) use ($search){
+        $q->where('title','like',"%$search%");
+        });
+    }
     
 
     /**

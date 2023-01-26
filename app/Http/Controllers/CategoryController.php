@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
+use App\Models\Product;
+use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
@@ -37,8 +39,13 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(StoreCategoryRequest $request)
-    {
-        Category::create(['ctitle'=>$request->ctitle]);
+    {    
+        if($request->hasFile('cimage')){
+            $imageName=uniqid()."cimage".$request->cimage->extension();
+            $request->cimage->storeAs('public/',$imageName);
+        }
+        
+        Category::create(['ctitle'=>$request->ctitle,'cimage'=>$imageName]);
 
         return redirect()->route('category.index');
     }
@@ -74,7 +81,15 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        $category->update(['ctitle'=>$request->ctitle]);
+         
+        if($request->hasFile('cimag')){
+            $imageName= uniqid().'image'.$request->cimage;
+            $request->cimage->storeAs('public/',$request->cimage);
+            Storage::delete('public/' . $category->cimage);
+        }else{
+            $imageName=$category->cimage;
+        }
+        $category->update(['ctitle'=>$request->ctitle,'cimage'=>$imageName]);
 
         return redirect()->route('category.index');
     }
@@ -91,4 +106,6 @@ class CategoryController extends Controller
 
         return back();
     }
+
+    
 }

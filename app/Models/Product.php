@@ -27,4 +27,10 @@ class Product extends Model
         });
      }
 
+     public function scopeFilter($query,$category){
+        return $query->whereHas('category',function ($q) use ($category){
+        $q->where('ctitle','=',$category);
+        });
+    }
+
 }
