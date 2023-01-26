@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{ asset(' admin/plugins/fontawesome-free/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/plugins/fontawesome-free/css/all.min.css') }}">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- DataTables -->
@@ -33,7 +33,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>DataTables</h1>
+                            <h1 class="">Product List</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -60,7 +60,7 @@
                                         <tr>
                                             <th>Title</th>
                                             <th>Image</th>
-                                            <th>Description</th> 
+                                            <th>Description</th>
                                             <th>category</th>
                                             <th>Price</th>
                                             <th>created</th>
@@ -72,26 +72,62 @@
                                             <tr>
                                                 <td>{{ $product->title }}
                                                 </td>
-                                                <td> <img src="{{ asset('img/carousel-1.jpg') }}" alt="" width="50px" height="50px"></td>
-                                                <td>{{ Str::words($product->description ,'10','....')}}</td>
-                                                <td>{{ $product->category_id }}</td>
+                                                <td> <img src="{{ asset('storage/' . $product->image) }}" alt=""
+                                                        width="50px" height="50px"
+                                                        onerror="this.onerror=null;this.src='{{ asset('img/cat-2.jpg') }}';">
+                                                </td>
+                                                <td>{{ Str::words($product->description, '10', '....') }}</td>
+                                                <td>{{ $product->category->ctitle }}</td>
                                                 <td>{{ $product->price }}</td>
                                                 <td>{{ $product->created_at }}</td>
-                                                <td><a href="" class="btn btn-success">edit</a></td>
+                                                <td class=" d-flex align-items-center">
+                                                    <a href="{{ route('product.edit',$product->id) }}" class="btn btn-sm btn-success mr-2">Edit</a>
+
+                                                    <!-- Button trigger modal -->
+                                                    <button type="button" class="btn btn-sm btn-danger"
+                                                        data-toggle="modal" data-target="#exampleModal">
+                                                        Delete
+                                                    </button>
+
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="exampleModal" tabindex="-1"
+                                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">
+                                                                        Delete
+                                                                        box</h5>
+                                                                    <button type="button" class="close"
+                                                                        data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <p class=" text-danger h4">Are you sure to dlelete?
+                                                                    </p>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button"
+                                                                        class="btn btn-sm btn-secondary"
+                                                                        data-dismiss="modal">Close</button>
+                                                                    <form
+                                                                        action="{{ route('product.destroy', $product->id) }}"
+                                                                        method="POST">
+                                                                        @csrf
+                                                                        @method('delete')
+                                                                        <button
+                                                                            class="btn btn-sm btn-danger">Delete</button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
                                             </tr>
                                         @endforeach
 
-
                                     </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Rendering engine</th>
-                                            <th>Browser</th>
-                                            <th>Platform(s)</th>
-                                            <th>Engine version</th>
-                                            <th>CSS grade</th>
-                                        </tr>
-                                    </tfoot>
                                 </table>
                             </div>
                             <!-- /.card-body -->

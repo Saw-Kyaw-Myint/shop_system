@@ -50,19 +50,20 @@
                             <!-- general form elements -->
                             <div class="card card-primary">
                                 <div class="card-header">
-                                    <h3 class="card-title">Product Create</h3>
+                                    <h3 class="card-title">Product Edit</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <!-- form start -->
-                                <form role="form" method="post" action="{{ route('product.store') }}"
+                                <form role="form" method="post" action="{{ route('product.update',$product->id) }}"
                                     enctype="multipart/form-data">
                                     @csrf
+                                    @method('put')
                                     <div class="card-body">
 
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Title</label>
                                             <input type="text" class="form-control" id="exampleInputEmail1"
-                                                placeholder="Enter Title" name="title" value="{{ old('title') }}">
+                                                placeholder="Enter Title" name="title" value="{{ old('title',$product->title) }}">
                                         </div>
 
                                         @error('title')
@@ -88,7 +89,7 @@
                                         @error('image')
                                             <span class="error-message">{{ $message }}</span>
                                         @enderror
-                                        <img id="output" src="" class=" mb-2" alt="preview" width="150px"
+                                        <img id="output" src="{{ asset('storage/'. $product->image) }}" class=" mb-2" alt="preview" width="150px"
                                             height="150px"
                                             onerror="this.onerror=null;this.src='{{ asset('img/offer-2.jpg') }}';">
 
@@ -98,7 +99,7 @@
                                             <select name="category" id="" class=" custom-select">
                                                 @foreach ($categories as $category)
                                                     <option value="{{ $category->id }}"
-                                                        {{ $category->id == old('category') ? 'selected' : '' }}>
+                                                        {{ $category->id == old('category',$category->id) ? 'selected' : '' }}>
                                                         {{ $category->ctitle }}</option>
                                                 @endforeach
                                             </select>
@@ -111,7 +112,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">Description</label>
                                             <textarea class="form-control" id="exampleInputPassword1" name="description" placeholder="Enter Description"
-                                                rows="5">{{ old('description') }}</textarea>
+                                                rows="5">{{ old('description',$product->description) }}</textarea>
                                         </div>
                                         @error('description')
                                             <span class="error-message">{{ $message }}</span>
@@ -120,7 +121,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">price</label>
                                             <input type="text" class="form-control" id="exampleInputEmail1"
-                                                placeholder="Enter price" name="price" value="{{ old('price') }}">
+                                                placeholder="Enter price" name="price" value="{{ old('price',$product->price) }}">
                                         </div>
                                         @error('price')
                                             <span class="error-message">{{ $message }}</span>
@@ -159,7 +160,7 @@
                                 var reader = new FileReader();
                                 reader.onload = function() {
                                     var output = document.getElementById('output');
-                                    output.src = reader.result;in
+                                    output.src = reader.result;
                                 };
                                 reader.readAsDataURL(event.target.files[0]);
                             };

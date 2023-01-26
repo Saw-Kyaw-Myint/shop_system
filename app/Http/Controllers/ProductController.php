@@ -16,7 +16,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-       $products=Product::latest('id')->get();
+       $products=Product::Search(request('q'))-> get();
+
        return view('pages.product.index',compact('products'));
     }
 
@@ -28,6 +29,7 @@ class ProductController extends Controller
     public function create()
     {
         $categories=Category::all();
+
         return view('pages.product.create',compact('categories'));
     }
 
@@ -39,7 +41,20 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        //
+        if($request->hasFile('image')){
+            $imageName= uniqid()."image" . $request->image->extension();
+            $request->image->storeAs('public/',$imageName);
+        }
+        $data=[
+            'title'=>$request->title,
+            'image'=>$imageName,
+            'description'=>$request->description,
+            'category_id'=>$request->category,
+              'price'=>$request->price,
+        ];
+      Product::create($data);
+      
+      return redirect()->route('product.index');
     }
 
     /**
@@ -61,7 +76,9 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        $categories=Category::all();
+
+        return view('pages.product.edi',compact('categories','product'));
     }
 
     /**
@@ -73,7 +90,23 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        //
+        if($request->hasFile('image')){
+         $imageName= uniqid(). "updateImage" .$request->image->extension();
+         $request->image->storeAs('public/',$imageName);
+        }else {
+            $imageName=$product->image;
+        }
+         $data=[
+            'title'=>$request->title,
+            'image'=>$imageName,
+            'description'=>$request->description,
+            'price'=>$request->price,
+            'category_id'=>$request->category,
+         ];
+
+         $product->update($data);
+
+         return redirect()->route('product.index');
     }
 
     /**
@@ -84,6 +117,7 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+          $product->delete();
+          return back();
     }
 }

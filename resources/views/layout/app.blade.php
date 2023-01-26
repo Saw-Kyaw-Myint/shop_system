@@ -7,7 +7,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Home</a>
+        <a href="{{ route('product.index') }}" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>
@@ -15,9 +15,9 @@
     </ul>
 
     <!-- SEARCH FORM -->
-    <form class="form-inline ml-3">
+    <form class="form-inline ml-3" action="{{ route('product.index') }}" method="get">
       <div class="input-group input-group-sm">
-        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+        <input class="form-control form-control-navbar" value="{{ request('q') }}" type="search" name="q" placeholder="Search" aria-label="Search">
         <div class="input-group-append">
           <button class="btn btn-navbar" type="submit">
             <i class="fas fa-search"></i>
@@ -149,7 +149,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item has-treeview menu-open">
-            <a href="#" class="nav-link active">
+            <a href="#" class="nav-link {{ url()->current() == "http://127.0.0.1:8000/dashboard" ? 'active' : ' '}}">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -158,7 +158,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./index.html" class="nav-link active">
+                <a href="{{ route('index') }}" class="nav-link {{ url()->current() == "http://127.0.0.1:8000/dashboard" ? 'active' : ' '}}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Dashboard v1</p>
                 </a>
@@ -166,7 +166,7 @@
             </ul>
           </li>
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+            <a href="#" class="nav-link {{ url()->current() == "http://127.0.0.1:8000/product/create" ? 'active' : ' '}}" >
               <i class="nav-icon fas fa-edit"></i>
               <p>
                 Forms
@@ -174,16 +174,22 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ route('product.create') }}" class="nav-link">
+              <li class="nav-item ">
+                <a href="{{ route('product.create') }}" class="nav-link {{ url()->current() == "http://127.0.0.1:8000/product/create" ? 'active' : ' '}}">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>create</p>
+                  <p>Product Create</p>
+                </a>
+              </li>
+              <li class="nav-item ">
+                <a href="{{ route('product.create') }}" class="nav-link {{ url()->current() == "http://127.0.0.1:8000/category/create" ? 'active' : ' '}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Category Create</p>
                 </a>
               </li>
             </ul>
           </li>
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+            <a href="#" class="nav-link {{ url()->current() == "http://127.0.0.1:8000/product" ? 'active' : ' '}}">
               <i class="nav-icon fas fa-table"></i>
               <p>
                 Tables
@@ -192,7 +198,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route('product.index') }}" class="nav-link">
+                <a href="{{ route('product.index') }}" class="nav-link {{ url()->current() == "http://127.0.0.1:8000/product" ? 'active' : ' '}}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>product List</p>
                 </a>
