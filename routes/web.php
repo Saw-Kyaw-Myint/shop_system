@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LangController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RegisterController;
@@ -41,3 +42,7 @@ Route::resource('/product',ProductController::class);
 Route::resource('/category',CategoryController::class);
 
 Route::get('/{category}',[ProductController::class,'search'])->name('category.search');
+
+//lang
+Route::get('lang/home', [LangController::class, 'index']);
+Route::get('lang/change', [LangController::class, 'change'])->name('changeLang');

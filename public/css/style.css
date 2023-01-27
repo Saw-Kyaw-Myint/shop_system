@@ -161,8 +161,8 @@ sup {
 }
 
 a {
-  color: #FFD333;
-  text-decoration: none;
+   color: #727272;
+  text-decoration: none !important;
   background-color: transparent;
 }
 
