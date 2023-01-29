@@ -15,8 +15,12 @@ class UserController extends Controller
         $products=Product::Search(request('q'))->latest('id')->get();
         $latestProducts=Product::latest('id')->take(8)->get();
         $categories=Category::has('products')->with('products')->get();
-        
-        return view('index',compact('products','categories','latestProducts')); 
+
+        return view('index',compact('products','categories','latestProducts'));
     }
-    
+
+    public function addCart(){
+        $categories=Category::has('products')->with('products')->get();
+       return view('add_cart',compact('categories'));
+    }
 }

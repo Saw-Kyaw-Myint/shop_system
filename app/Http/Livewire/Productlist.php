@@ -24,6 +24,9 @@ class Productlist extends Component
                 'product_id'=>$id,
             ];
             Shoppingcart::updateOrCreate($data);
+
+            $this->emit('updateCartCount');
+            
             session()->flash('success','Product added to the cart successfully');
         } else {
             return redirect()->route('login.create');

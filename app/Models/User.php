@@ -21,15 +21,24 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'address',
+        'phone',
+        'region',
     ];
 
+
+    public function  shooppingCart(){
+        return $this->hasMany(Shoppingcart::class, 'user_id', 'id');
+    }
 
     public function  scopeSearch($query,$search){
         return $query->when($search ?? false,function ($q) use ($search){
         $q->where('title','like',"%$search%");
         });
     }
-    
+
+
+
 
     /**
      * The attributes that should be hidden for serialization.

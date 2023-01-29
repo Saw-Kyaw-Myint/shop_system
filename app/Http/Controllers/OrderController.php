@@ -2,9 +2,15 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Order;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
+use App\Models\Category;
+use App\Models\orderProduct;
+use Illuminate\Support\Facades\DB;
+use App\Models\Shoppingcart  as Cart;
+use App\Models\User;
 
 class OrderController extends Controller
 {
@@ -25,7 +31,17 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //
+        $categories=Category::all();
+
+        $totalOrder=Cart::with('product')->where('user_id','=',auth()->user()->id)->get();
+        $sub_total=0;
+        foreach($totalOrder as $item){
+            $sub_total +=$item->product->price * $item->quantity;
+        }
+        $tax=($sub_total/100) * 15;
+        $totalPrice=$sub_total + $tax;
+
+         return view('checkout',compact('categories','totalOrder','sub_total','totalPrice'));
     }
 
     /**
@@ -36,7 +52,33 @@ class OrderController extends Controller
      */
     public function store(StoreOrderRequest $request)
     {
-        //
+        //return $request;
+
+        $addCart=Cart::with('product')->where('user_id','=',auth()->user()->id)->get();
+
+       foreach ($addCart as $key => $orderCart) {
+        $orderProduct=orderProduct::create([
+            'quantity'=>$orderCart->quantity,
+            'user_id'=>$orderCart->user_id,
+            'product_id'=>$orderCart->product_id,
+           ]);
+
+       }
+
+         $user=User::find(auth()->user()->id);
+         $user->shooppingCart()->delete();
+        // dd('yu')
+        $data=[
+            'address'=>$request->address,
+            'region'=>$request->region,
+            'phone'=>$request->phone,
+        ];
+       $user= $user->update($data);
+    //   dd($user);
+           if($user){
+            return redirect()->route('index')->with('success','order is successfully');
+           }
+    dd('hla');
     }
 
     /**
