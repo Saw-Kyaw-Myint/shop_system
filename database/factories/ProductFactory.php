@@ -23,7 +23,7 @@ class ProductFactory extends Factory
             'image'=>$postImg[rand(0,1)],
             'description'=>fake()->paragraph(5),
             'category_id'=>Category::all()->random()->id,
-            'price'=>fake()->numberBetween(1000,6000),
+            'price'=>fake()->numberBetween(10,20),
         ];
     }
 }

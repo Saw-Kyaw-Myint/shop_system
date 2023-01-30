@@ -47,11 +47,19 @@ Route::resource('/product',ProductController::class);
 //category
 Route::resource('/category',CategoryController::class);
 
-// Route::get('/{category}',[Productlist::class,'search'])->name('category.search');
+Route::get('/{category}',[Productlist::class,'search'])->name('category.search');
 
 //lang
 Route::get('lang/home', [LangController::class, 'index']);
 Route::get('lang/change', [LangController::class, 'change'])->name('changeLang');
 
 //livewire
+
+Route::get('payment-cancel',function(){
+    dd('cancel');
+})->name('payment.cancel');
+
+Route::get('payment-success',function(){
+    dd('success');
+})->name('payment.success');
 

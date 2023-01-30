@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Http\Requests\StoreOrderRequest;
+use Srmklive\PayPal\Services\PayPal as PayPalClient;
 use App\Http\Requests\UpdateOrderRequest;
 use App\Models\Category;
 use App\Models\orderProduct;
 use Illuminate\Support\Facades\DB;
+
 use App\Models\Shoppingcart  as Cart;
 use App\Models\User;
 
@@ -31,6 +33,37 @@ class OrderController extends Controller
      */
     public function create()
     {
+
+        $tokenprovider=[];
+
+        $provider = new PayPalClient([]);
+        $provider->setApiCredentials(config('paypal'));
+        // $token = $provider->getAccessToken();
+        // $provider->setAccessToken($token);  
+
+        // dd($provider);
+   
+        $order = $provider->createOrder([
+            "intent" => "CAPTURE",
+            "purchase_units" => [
+                [
+                    "amount" => [
+                        "currency_code" => 'USD',
+                        'value'  => 224,
+                    ]
+                ]
+            ],
+            'application_context' => [
+                'cancel_url' => route('payment.cancel'),
+                'return_url' => route('payment.success')
+            ]
+
+        ]);
+
+        dd($order);
+
+    //  return response()->json_encode($order, JSON_FORCE_OBJECT);
+
         $categories=Category::all();
 
         $totalOrder=Cart::with('product')->where('user_id','=',auth()->user()->id)->get();
