@@ -22,7 +22,9 @@ class LoginController extends Controller
 
             return  redirect()->route('login.create')->with('error', 'Email and password is incorrect');
         }
-     
+        if(auth()->user()->role==1){
+       return  redirect()->route('index');
+        }
         
         return redirect()->route('home.index');
     }

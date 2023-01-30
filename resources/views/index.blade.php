@@ -191,14 +191,14 @@
                             <img class="img-fluid w-100" src="{{ asset('storage/' . $lproduct->image) }}"
                                 alt="">
                             <div class="product-action">
-                                <a class="btn btn-outline-dark btn-square" href=""><i
-                                        class="fa fa-shopping-cart"></i></a>
-                                <a class="btn btn-outline-dark btn-square" href=""><i
-                                        class="far fa-heart"></i></a>
-                                <a class="btn btn-outline-dark btn-square" href=""><i
-                                        class="fa fa-sync-alt"></i></a>
-                                <a class="btn btn-outline-dark btn-square" href=""><i
-                                        class="fa fa-search"></i></a>
+                                <button class="btn btn-outline-dark btn-square cart-item"><i
+                                        class="fa fa-shopping-cart cart-item"></i></button>
+                                <button class="btn btn-outline-dark btn-square cart-item"><i
+                                        class="far fa-heart"></i></button>
+                                <button class="btn btn-outline-dark btn-square cart-item" ><i
+                                        class="fa fa-sync-alt"></i></button>
+                                <button class="btn btn-outline-dark btn-square cart-item" ><i
+                                        class="fa fa-search"></i></button>
                             </div>
                         </div>
                         <div class="text-center py-4">

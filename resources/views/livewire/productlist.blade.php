@@ -1,7 +1,12 @@
 <div>
 
     @if (session()->has('success'))
-        <p class="p-4 bg-success text-white">{{ session('success') }}</p>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+       {{ session("success") }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
     @endif
 
     <div class="container-fluid pt-5 pb-3" id="product">

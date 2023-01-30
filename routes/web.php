@@ -8,6 +8,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserController;
+use App\Http\Livewire\Productlist;
 use App\Http\Livewire\Shoppingcart;
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
@@ -46,7 +47,7 @@ Route::resource('/product',ProductController::class);
 //category
 Route::resource('/category',CategoryController::class);
 
-Route::get('/{category}',[ProductController::class,'search'])->name('category.search');
+// Route::get('/{category}',[Productlist::class,'search'])->name('category.search');
 
 //lang
 Route::get('lang/home', [LangController::class, 'index']);
