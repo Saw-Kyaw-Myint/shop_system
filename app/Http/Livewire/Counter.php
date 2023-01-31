@@ -17,7 +17,12 @@ class Counter extends Component
     }
 
     public function cartCount(){
-        $this->total=Shoppingcart::where('user_id','=',auth()->user()->id)->count();
+        if(session()->get('cart')!=null){
+            $this->total=count(session()->get('cart'));
+        }else{
+            $this->total=0;
+        }
+       
     }
 
 }

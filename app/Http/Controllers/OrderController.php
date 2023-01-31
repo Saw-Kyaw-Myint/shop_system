@@ -10,8 +10,6 @@ use App\Http\Requests\UpdateOrderRequest;
 use App\Models\Category;
 use App\Models\orderProduct;
 use Illuminate\Support\Facades\DB;
-
-use App\Models\Shoppingcart  as Cart;
 use App\Models\User;
 
 class OrderController extends Controller
@@ -23,7 +21,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $orders = Order::latest('id')->get();
     }
 
     /**
@@ -34,47 +32,46 @@ class OrderController extends Controller
     public function create()
     {
 
-        $tokenprovider=[];
+        // $tokenprovider=[];
 
-        $provider = new PayPalClient([]);
-        $provider->setApiCredentials(config('paypal'));
-        // $token = $provider->getAccessToken();
-        // $provider->setAccessToken($token);  
+        // $provider = new PayPalClient([]);
+        // $provider->setApiCredentials(config('paypal'));
+        // // $token = $provider->getAccessToken();
+        // // $provider->setAccessToken($token);  
 
-        // dd($provider);
-   
-        $order = $provider->createOrder([
-            "intent" => "CAPTURE",
-            "purchase_units" => [
-                [
-                    "amount" => [
-                        "currency_code" => 'USD',
-                        'value'  => 224,
-                    ]
-                ]
-            ],
-            'application_context' => [
-                'cancel_url' => route('payment.cancel'),
-                'return_url' => route('payment.success')
-            ]
+        // // dd($provider);
 
-        ]);
+        // $order = $provider->createOrder([
+        //     "intent" => "CAPTURE",
+        //     "purchase_units" => [
+        //         [
+        //             "amount" => [
+        //                 "currency_code" => 'USD',
+        //                 'value'  => 224,
+        //             ]
+        //         ]
+        //     ],
+        //     'application_context' => [
+        //         'cancel_url' => route('payment.cancel'),
+        //         'return_url' => route('payment.success')
+        //     ]
 
-        dd($order);
+        // ]);
 
-    //  return response()->json_encode($order, JSON_FORCE_OBJECT);
+        // dd($order);
 
-        $categories=Category::all();
+        //  return response()->json_encode($order, JSON_FORCE_OBJECT);
 
-        $totalOrder=Cart::with('product')->where('user_id','=',auth()->user()->id)->get();
-        $sub_total=0;
-        foreach($totalOrder as $item){
-            $sub_total +=$item->product->price * $item->quantity;
+        $categories = Category::all();
+        $totalOrder = session()->get('cart');
+        $sub_total = 0;
+        foreach ($totalOrder as $item) {
+            $sub_total += $item['price'] * $item['quantity'];
         }
-        $tax=($sub_total/100) * 15;
-        $totalPrice=$sub_total + $tax;
+        $tax = ($sub_total / 100) * 15;
+        $totalPrice = $sub_total + $tax;
 
-         return view('checkout',compact('categories','totalOrder','sub_total','totalPrice'));
+        return view('checkout', compact('categories', 'totalOrder', 'sub_total', 'totalPrice'));
     }
 
     /**
@@ -85,33 +82,39 @@ class OrderController extends Controller
      */
     public function store(StoreOrderRequest $request)
     {
-        //return $request;
+        $addCart = session()->get('cart');
+        foreach ($addCart as $key => $orderCart) {
+            if (isset($orderCart['product'])) {
+                $product_id = $orderCart['product'];
+            }
+            orderProduct::create([
+                'quantity' => $orderCart['quantity'],
+                'user_id' => auth()->user()->id,
+                'product_id' => $product_id,
+            ]);
+        }
+        $time = 1;
+        Order::create([
+            'user_id' => auth()->user()->id,
+            'order_time' => $time,
+        ]);
 
-        $addCart=Cart::with('product')->where('user_id','=',auth()->user()->id)->get();
+       
 
-       foreach ($addCart as $key => $orderCart) {
-        $orderProduct=orderProduct::create([
-            'quantity'=>$orderCart->quantity,
-            'user_id'=>$orderCart->user_id,
-            'product_id'=>$orderCart->product_id,
-           ]);
+        $user = User::find(auth()->user()->id);
+        $user->shooppingCart()->delete();
 
-       }
-
-         $user=User::find(auth()->user()->id);
-         $user->shooppingCart()->delete();
-        // dd('yu')
-        $data=[
-            'address'=>$request->address,
-            'region'=>$request->region,
-            'phone'=>$request->phone,
+        $data = [
+            'address' => $request->address,
+            'region' => $request->region,
+            'phone' => $request->phone,
         ];
-       $user= $user->update($data);
-    //   dd($user);
-           if($user){
-            return redirect()->route('index')->with('success','order is successfully');
-           }
-    dd('hla');
+        $user = $user->update($data);
+        if ($user) {
+            session()->forget('cart');
+
+            return redirect()->route('index')->with('success', 'order is successfully');
+        }
     }
 
     /**
@@ -154,8 +157,12 @@ class OrderController extends Controller
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Order $order)
+    public function destroy($order)
     {
-        //
+        $orderProduct=orderProduct::find($order);
+        $orderProduct->delete();
+        
+        return back();
+
     }
 }

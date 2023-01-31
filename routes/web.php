@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LangController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderProductController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserController;
@@ -38,8 +39,12 @@ Route::post('/register',[RegisterController::class, 'store'])->name('register.st
 Route::get('/login',[LoginController::class, 'create'])->name('login.create');
 Route::post('/login',[LoginController::class, 'store'])->name('login.store');
 
-//Home
+//dashboard
 Route::get('/dashboard',[HomeController::class, 'index'])->name('home.index');
+Route::get('/user',[UserController::class, 'list'])->name('user.list');
+Route::delete('/user/{id}',[UserController::class, 'destroy'])->name('user.destroy');
+Route::get('/order',[OrderProductController::class,'index'])->name('orderProduct.index');
+
 
 //product
 Route::resource('/product',ProductController::class);

@@ -209,6 +209,21 @@
                   <p>Categories List</p>
                 </a>
               </li>
+
+              <li class="nav-item">
+                <a href="{{ route('user.list') }}" class="nav-link {{ url()->current() == "http://127.0.0.1:8000/category" ? 'active' : ' '}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>User List</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="{{ route('orderProduct.index') }}" class="nav-link {{ url()->current() == "http://127.0.0.1:8000/category" ? 'active' : ' '}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>order List</p>
+                </a>
+              </li>
+
             </ul>
           </li>
         

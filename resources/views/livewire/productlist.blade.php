@@ -9,6 +9,15 @@
       </div>
     @endif
 
+    @if (session()->has('warning'))
+    <div class="alert alert-warning text-danger alert-dismissible fade show" role="alert">
+       {{ session("warning") }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    @endif
+
     <div class="container-fluid pt-5 pb-3" id="product">
         <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span
                 class="bg-secondary pr-3">{{ __('message.feature_product') }}</span></h2>
