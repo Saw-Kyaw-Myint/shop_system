@@ -60,5 +60,6 @@ return [
     'order_total'=>'Order Total',
     'payment'=>'Payment',
     'place_order'=>'Place Order',
+    'pages'=>'pages',
     'total_order_product'=>'Total Order Product',
 ];

@@ -7,10 +7,12 @@ use App\Models\Order;
 use App\Http\Requests\StoreOrderRequest;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
 use App\Http\Requests\UpdateOrderRequest;
+use App\Mail\OrderMail;
 use App\Models\Category;
 use App\Models\orderProduct;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
@@ -98,12 +100,8 @@ class OrderController extends Controller
             'user_id' => auth()->user()->id,
             'order_time' => $time,
         ]);
-
-       
-
         $user = User::find(auth()->user()->id);
         $user->shooppingCart()->delete();
-
         $data = [
             'address' => $request->address,
             'region' => $request->region,
@@ -111,8 +109,12 @@ class OrderController extends Controller
         ];
         $user = $user->update($data);
         if ($user) {
-            session()->forget('cart');
 
+            Mail::to(auth()->user()->email)
+            ->send(new OrderMail());
+
+            session()->forget('cart');
+            
             return redirect()->route('index')->with('success', 'order is successfully');
         }
     }

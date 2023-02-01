@@ -34,7 +34,7 @@ class Product extends Model
     {
         return $query->when($category ?? false, function ($q) use ($category) {
             $q->whereHas('category', function ($p) use ($category) {
-                $p->where('ctitle', '=', $category);
+                $p->where('id', '=', $category);
             });
         });
     }

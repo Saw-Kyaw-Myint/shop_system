@@ -149,7 +149,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item has-treeview menu-open">
-            <a href="#" class="nav-link {{ url()->current() == "http://127.0.0.1:8000/dashboard" ? 'active' : ' '}}">
+            <a href="{{ route('home.index') }}" class="nav-link {{ url()->current() == "http://127.0.0.1:8000/dashboard" ? 'active' : ' '}}">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -158,7 +158,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route('index') }}" class="nav-link {{ url()->current() == "http://127.0.0.1:8000/dashboard" ? 'active' : ' '}}">
+                <a href="{{ route('home.index') }}" class="nav-link {{ url()->current() == "http://127.0.0.1:8000/dashboard" ? 'active' : ' '}}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Dashboard v1</p>
                 </a>

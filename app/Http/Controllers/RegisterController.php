@@ -3,18 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreRegisterRequest;
+use App\Mail\RegisterMail;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class RegisterController extends Controller
 {
-    public function create(){
-        return  view('auth.register');
+    public function create()
+    {
+        return view('auth.register');
     }
 
-    public function store(StoreRegisterRequest $request){
+    public function store(StoreRegisterRequest $request)
+    {
         $data = [
             'name' => $request->name,
             'email' => $request->email,
@@ -23,12 +26,14 @@ class RegisterController extends Controller
         User::create($data);
         $user_data = array(
             'email' => $request->email,
-            'password'  => $request->password,
+            'password' => $request->password,
         );
         $input_data = Auth::attempt($user_data);
-        if($input_data){
-             
-        return redirect()->route('post.index');
+        if ($input_data) {
+            Mail::to(Auth::user()->email)
+                ->send(new RegisterMail());
+
+            return redirect()->route('index');
         }
 
         return redirect()->route('login.create');

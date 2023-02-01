@@ -14,7 +14,7 @@
                     </thead>
                     <tbody class="align-middle">
 
-                        @foreach (session('cart') as $id => $details)
+                        @foreach ($cartItems as $id => $details)
                             <tr>
                                 <td class="align-middle"><img src="{{ asset('storage/' . $details['image'] ) }}"
                                         alt="" style="width: 50px;">
@@ -22,7 +22,8 @@
                                 <td class="align-middle">{{ $details['price'] }}</td>
                                 <td class="align-middle">
                                     <div class="input-group quantity mx-auto" style="width: 100px;">
-                                        <div class="input-group-btn">
+                                  
+                                        <div class="input-group-btn">    
                                             <button class="btn btn-sm btn-primary btn-minus"
                                                 wire:click="decrement({{ $id }})">
                                                 <i class="fa fa-minus"></i>

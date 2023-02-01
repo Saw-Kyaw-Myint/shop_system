@@ -14,8 +14,9 @@ class Shoppingcart extends Component
     public function render()
     {
         $this->countCart();
-        $this->cartItems = session()->get('cart');
-
+        
+        $this->cartItems = session()->get('cart')==null ? [] : session()->get('cart');
+             
         return view('livewire.shoppingcart');
     }
 
@@ -65,7 +66,7 @@ class Shoppingcart extends Component
 
     public function countCart()
     {
-        $this->sumCart = session()->get('cart');
+        $this->sumCart = session()->get('cart')==null ? [] : session()->get('cart');
         $this->total = 0;
         $this->sub_total = 0;
         $this->tax = 0;
