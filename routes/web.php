@@ -29,17 +29,20 @@ Route::get('/',[UserController::class, 'index'])->name('index');
 Route::get('/shoopingcart',[UserController::class, 'addCart'])->name('addcart');
 Route::resource('/order',OrderController::class);
 
-
-
+//auth
+Route::group(['middleware' => ['auth']], function () {
 //register
 Route::get('/register',[RegisterController::class, 'create'])->name('register.create');
 Route::post('/register',[RegisterController::class, 'store'])->name('register.store');
-
 //Login
 Route::get('/login',[LoginController::class, 'create'])->name('login.create');
 Route::post('/login',[LoginController::class, 'store'])->name('login.store');
+});
 
-//dashboard
+Route::get('/logout',[LoginController::class, 'logout'])->name('logout');
+
+//Admin
+Route::group(['middleware' => ['admin']], function () {
 Route::get('/dashboard',[HomeController::class, 'index'])->name('home.index');
 Route::get('/user',[UserController::class, 'list'])->name('user.list');
 Route::delete('/user/{id}',[UserController::class, 'destroy'])->name('user.destroy');
@@ -51,12 +54,17 @@ Route::resource('/product',ProductController::class);
 
 //category
 Route::resource('/category',CategoryController::class);
+});
+
+
+
 
 Route::get('/{category}',[Productlist::class,'search'])->name('category.search');
 
 //lang
 Route::get('lang/home', [LangController::class, 'index']);
 Route::get('lang/change', [LangController::class, 'change'])->name('changeLang');
+
 
 //livewire
 

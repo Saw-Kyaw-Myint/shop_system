@@ -51,7 +51,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">DataTable with minimal features & hover style</h3>
+                                <h3 class="card-title"><a href="{{ route('category.create') }}" class="btn btn-primary rounded">create</a></h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">

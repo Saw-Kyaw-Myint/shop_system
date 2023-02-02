@@ -18,7 +18,6 @@ class Counter extends Component
     public function cartCount()
     {
         $session= session()->get('cart') == null ? [] : session()->get('cart');
-
         $this->total = count($session);
 
     }

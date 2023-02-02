@@ -56,14 +56,14 @@
                                 <button class="btn btn-outline-dark btn-square cart-item"
                                     wire:click="addToCart({{ $product->id }})"><i
                                         class="fa fa-shopping-cart"></i></button>
-
+{{-- 
 
                                 <button class="btn btn-outline-dark btn-square cart-item"><i
                                         class="far fa-heart"></i></button>
                                 <button class="btn btn-outline-dark btn-square cart-item"><i
                                         class="fa fa-sync-alt"></i></button>
                                 <button class="btn btn-outline-dark btn-square cart-item"><i
-                                        class="fa fa-search"></i></button>
+                                        class="fa fa-search"></i></button> --}}
                             </div>
                         </div>
                         <div class="text-center py-4">

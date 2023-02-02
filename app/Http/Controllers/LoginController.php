@@ -35,4 +35,10 @@ class LoginController extends Controller
 
         return redirect()->route('home.index');
     }
+
+
+    public function logout(){
+        $logout = Auth::logout();
+         return   redirect()->route('index');
+    }
 }

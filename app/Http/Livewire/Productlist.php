@@ -14,7 +14,7 @@ class Productlist extends Component
     public function mount()
     {
         $this->categories = Category::has('products')->with('products')->get();
-        $this->products = Product::Search(request('q'))->get();
+        $this->products = Product::Search(request('q'))->latest('id')->get();
     }
 
     public function render()

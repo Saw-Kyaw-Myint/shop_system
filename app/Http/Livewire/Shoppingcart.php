@@ -59,6 +59,8 @@ class Shoppingcart extends Component
                 unset($cart[$id]);
                 session()->put('cart', $cart);
             }
+            
+            $this->emit('updateCartCount');
             session()->flash('success', 'Product removed successfully');
         }
         session()->flash('success', 'product is removed from cart');

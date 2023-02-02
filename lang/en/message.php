@@ -62,4 +62,6 @@ return [
     'place_order'=>'Place Order',
     'pages'=>'pages',
     'total_order_product'=>'Total Order Product',
+    'dashboard'=>'Dashboard',
+    'logout'=>'logout',
 ];
