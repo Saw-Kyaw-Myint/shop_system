@@ -21,4 +21,8 @@ class orderProduct extends Model
       public function category(){
         return $this->belongsTo(Category::class);
       }
+
+      public function scopeFilter($query,$month){
+       return    $query->whereMonth('created_at',$month);
+      }
 }

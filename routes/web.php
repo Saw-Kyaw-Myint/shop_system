@@ -12,6 +12,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Livewire\Productlist;
 use App\Http\Livewire\Shoppingcart;
 use App\Models\Category;
+use App\Models\orderProduct;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -47,7 +48,7 @@ Route::get('/dashboard',[HomeController::class, 'index'])->name('home.index');
 Route::get('/user',[UserController::class, 'list'])->name('user.list');
 Route::delete('/user/{id}',[UserController::class, 'destroy'])->name('user.destroy');
 Route::get('/order',[OrderProductController::class,'index'])->name('orderProduct.index');
-
+Route::get('/orderMonths/{moth}',[OrderProductController::class, 'monthIncome'])->name('month.order');
 
 //product
 Route::resource('/product',ProductController::class);

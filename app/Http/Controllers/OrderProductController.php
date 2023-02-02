@@ -14,10 +14,17 @@ class OrderProductController extends Controller
 
         $today = date('Y-m-d');
         $todayOrder=orderProduct::with('product')->whereDate('created_at','=',$today)->get();
+        
+        $orderMonths=[];
+        foreach ($orderProducts as $key => $orderProduct) {
+        $orderMonths[]=$orderProduct->created_at;
+        }
+        $orderMonths=array_unique( $orderMonths);
+           
         foreach ($todayOrder as $key => $order) {
          $todayOrderPrice +=$order->product->price * $order->quantity;
         }
 
-        return view('pages.order.index',compact('orderProducts','todayOrderPrice'));
+        return view('pages.order.index',compact('orderProducts','todayOrderPrice','orderMonths'));
     }
 }
