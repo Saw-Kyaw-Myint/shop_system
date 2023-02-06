@@ -33,37 +33,6 @@ class OrderController extends Controller
      */
     public function create()
     {
-
-        // $tokenprovider=[];
-
-        // $provider = new PayPalClient([]);
-        // $provider->setApiCredentials(config('paypal'));
-        // // $token = $provider->getAccessToken();
-        // // $provider->setAccessToken($token);  
-
-        // // dd($provider);
-
-        // $order = $provider->createOrder([
-        //     "intent" => "CAPTURE",
-        //     "purchase_units" => [
-        //         [
-        //             "amount" => [
-        //                 "currency_code" => 'USD',
-        //                 'value'  => 224,
-        //             ]
-        //         ]
-        //     ],
-        //     'application_context' => [
-        //         'cancel_url' => route('payment.cancel'),
-        //         'return_url' => route('payment.success')
-        //     ]
-
-        // ]);
-
-        // dd($order);
-
-        //  return response()->json_encode($order, JSON_FORCE_OBJECT);
-
         $categories = Category::all();
         $totalOrder = session()->get('cart');
         $sub_total = 0;
@@ -101,7 +70,6 @@ class OrderController extends Controller
             'order_time' => $time,
         ]);
         $user = User::find(auth()->user()->id);
-        $user->shooppingCart()->delete();
         $data = [
             'address' => $request->address,
             'region' => $request->region,
@@ -109,62 +77,25 @@ class OrderController extends Controller
         ];
         $user = $user->update($data);
         if ($user) {
-
             Mail::to(auth()->user()->email)
-            ->send(new OrderMail());
-
+                ->send(new OrderMail());
             session()->forget('cart');
-            
+
             return redirect()->route('index')->with('success', 'order is successfully');
         }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Order $order)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Order $order)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateOrderRequest  $request
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateOrderRequest $request, Order $order)
-    {
-        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
+     * @return back()
      */
     public function destroy($order)
     {
-        $orderProduct=orderProduct::find($order);
+        $orderProduct = orderProduct::find($order);
         $orderProduct->delete();
-        
-        return back();
 
+        return back();
     }
 }

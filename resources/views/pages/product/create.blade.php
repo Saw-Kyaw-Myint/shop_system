@@ -51,10 +51,10 @@
                                                 </div>
                                             </div>
                                             @error('image')
-                                                <span class="error-message">{{ $message }}</span>
+                                                <span class="error-message">{{ $message }}</span><br>
                                             @enderror
                                             <img id="output" src="" class=" mb-2" alt="preview"
-                                                width="150px" height="150px"
+                                                width="150px" height="150px"  class=""
                                                 onerror="this.onerror=null;this.src='{{ asset('img/offer-2.jpg') }}';">
 
                                             <div class="form-group">

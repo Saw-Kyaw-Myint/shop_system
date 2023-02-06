@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class orderProduct extends Model
 {
     use HasFactory;
-    protected $fillable=['quantity','product_id','user_id'];
+    protected $fillable=['quantity','product_id','user_id','created_at'];
 
     public function product(){
         return $this->belongsTo(Product::class);
@@ -25,4 +25,15 @@ class orderProduct extends Model
       public function scopeFilter($query,$month){
        return    $query->whereMonth('created_at',$month);
       }
+
+      public function scopeYearFilter($query,$year){
+        return    $query->whereYear('created_at',$year);
+       }
+
+       public function scopeToday($query,$today){
+        return    $query->whereDate('created_at', '=', $today);
+       }
+
+
+       
 }

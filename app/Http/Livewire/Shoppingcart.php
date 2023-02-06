@@ -14,9 +14,9 @@ class Shoppingcart extends Component
     public function render()
     {
         $this->countCart();
-        
-        $this->cartItems = session()->get('cart')==null ? [] : session()->get('cart');
-             
+
+        $this->cartItems = session()->get('cart') == null ? [] : session()->get('cart');
+
         return view('livewire.shoppingcart');
     }
 
@@ -51,6 +51,11 @@ class Shoppingcart extends Component
         return back();
     }
 
+    /**
+     * remove card.
+     *
+     * @return back();
+     */
     public function removeCart($id)
     {
         if ($id) {
@@ -59,16 +64,21 @@ class Shoppingcart extends Component
                 unset($cart[$id]);
                 session()->put('cart', $cart);
             }
-            
+
             $this->emit('updateCartCount');
             session()->flash('success', 'Product removed successfully');
         }
         session()->flash('success', 'product is removed from cart');
     }
 
+    /**
+     * count cart.
+     *
+     * @return back();
+     */
     public function countCart()
     {
-        $this->sumCart = session()->get('cart')==null ? [] : session()->get('cart');
+        $this->sumCart = session()->get('cart') == null ? [] : session()->get('cart');
         $this->total = 0;
         $this->sub_total = 0;
         $this->tax = 0;

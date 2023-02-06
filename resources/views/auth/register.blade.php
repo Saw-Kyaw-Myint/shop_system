@@ -6,11 +6,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
 </head>
 <body>
-	<div class="main">  	
+	<div class="main">
+		<a href="{{ route('register.create') }}" class="crop">X</a>  	
 		<input type="checkbox" id="chk" aria-hidden="true">
 	<center>
 			<div class="signup">
-			
 				<form method="post" action="{{ route('register.store') }}">
 					@csrf
 					<label for="chk" aria-hidden="true">Sign up</label>

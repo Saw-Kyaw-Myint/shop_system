@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
@@ -26,6 +27,8 @@ class User extends Authenticatable
         'region',
     ];
 
+    use SoftDeletes;
+    protected $dates = ['deleted_at'];
 
     public function  shooppingCart(){
         return $this->hasMany(Shoppingcart::class, 'user_id', 'id');

@@ -19,6 +19,7 @@ class IsLogin
         if(auth()->user()){
            return back();
         }
+        
         return $next($request);
     }
 }

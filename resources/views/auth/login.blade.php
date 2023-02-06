@@ -18,8 +18,8 @@
 	</div>
 	@endif
 	<div class="main">  	
+		<a href="{{ route('login.create') }}" class="crop">X</a>  	
 		<input type="checkbox" id="chk" aria-hidden="true">
-
 			<div class="signup">
 				<center>
 				<form action="{{ route('login.store') }}" method="POST">

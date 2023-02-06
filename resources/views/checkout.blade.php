@@ -62,7 +62,7 @@
 
                             <div class="col-md-12 form-group">
                                 <label>{{ __('message.you_address') }}</label>
-                                <textarea class="form-control" name="address" type="text" placeholder="New York">{{ old('address') }}</textarea>
+                                <textarea class="form-control" name="address" type="text" placeholder="write address">{{ old('address') }}</textarea>
                                  @error('address')
                             <span class="error-message  text-danger">{{ $message }}</span>
                              @enderror

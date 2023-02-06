@@ -71,8 +71,6 @@
                         </div>
                         <a href="{{ route('order.create') }}"
                             class="btn btn-block btn-primary font-weight-bold my-3 py-3">{{ __('message.checkout') }}</a>
-                        {{-- <button class="btn btn-block btn-primary font-weight-bold my-3 py-3" wire:click="checkout">{{ __('message.checkout') }}</button> --}}
-
                     </div>
                 </div>
             </div>

@@ -44,7 +44,6 @@ class CategoryController extends Controller
             $imageName=uniqid()."cimage".$request->cimage->extension();
             $request->cimage->storeAs('public/',$imageName);
         }
-        
         Category::create(['ctitle'=>$request->ctitle,'cimage'=>$imageName]);
 
         return redirect()->route('category.index');
@@ -77,7 +76,7 @@ class CategoryController extends Controller
      *
      * @param  \App\Http\Requests\UpdateCategoryRequest  $request
      * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
+     * @return route('category.index)
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
@@ -98,7 +97,7 @@ class CategoryController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
+     * @return back();
      */
     public function destroy(Category $category)
     {

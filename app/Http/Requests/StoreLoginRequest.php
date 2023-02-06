@@ -25,10 +25,18 @@ class StoreLoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => ['required'],
-            'password' => ['required',
-            Password::min(6)
-                ->numbers()],
+            'email' => 'required|unique:ban_lists,email|email:rfc,dns',
+            'password' => [
+                'required',
+                Password::min(6)
+                    ->numbers()
+            ],
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'email.unique' => 'Youre emails has been banned'
         ];
     }
 }

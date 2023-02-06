@@ -27,8 +27,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/',[UserController::class, 'index'])->name('index');
-Route::get('/shoopingcart',[UserController::class, 'addCart'])->name('addcart');
 Route::resource('/order',OrderController::class);
+Route::get('/shoopingcart',[UserController::class, 'addCart'])->name('addcart');
+
 
 //auth
 Route::group(['middleware' => ['auth']], function () {
@@ -46,6 +47,8 @@ Route::get('/logout',[LoginController::class, 'logout'])->name('logout');
 Route::group(['middleware' => ['admin']], function () {
 Route::get('/dashboard',[HomeController::class, 'index'])->name('home.index');
 Route::get('/user',[UserController::class, 'list'])->name('user.list');
+Route::get('/user/banList',[UserController::class, 'banList'])->name('user.banList');
+Route::get('/user/unban/{id}',[UserController::class, 'unban'])->name('user.unban');
 Route::delete('/user/{id}',[UserController::class, 'destroy'])->name('user.destroy');
 Route::get('/order',[OrderProductController::class,'index'])->name('orderProduct.index');
 Route::get('/orderMonths/{moth}',[OrderProductController::class, 'monthIncome'])->name('month.order');

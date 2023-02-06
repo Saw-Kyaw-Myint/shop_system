@@ -11,11 +11,22 @@ use Illuminate\Support\Facades\Mail;
 
 class RegisterController extends Controller
 {
+    /**
+     *
+     * @return view(auth.register)
+     */
     public function create()
     {
         return view('auth.register');
     }
 
+   /**
+     * Store the specified resource in storage.
+     *
+     * @param  \App\Http\Requests\StoreRegisterRequest  $request
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
     public function store(StoreRegisterRequest $request)
     {
         $data = [

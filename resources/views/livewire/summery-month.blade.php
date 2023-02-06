@@ -3,7 +3,7 @@
         <div class=" col-12 col-md-5">
             <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title">Condensed Full Width Table</h3>
+                  <h3 class="card-title text-primary">Month Product Sale Table</h3>
                   <div class=" float-right">
                     <p class=" border border-gray p-1" data-toggle="dropdown" >
                         <i class="fas fa-list"></i>
@@ -11,8 +11,8 @@
                     </p>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                         @foreach ($months as $month)
-                        <button  class="dropdown-item" wire:click="income({{ $month->format('m') }})">
-                            <span class=" text-muted text-sm">{{ $month->format('M') }}</span>
+                        <button  class="dropdown-item" wire:click="income({{ $month }})">
+                            <span class=" text-muted text-sm">{{ date('F', strtotime("2023-$month-06")) }}</span>
                         </button>
                         <div class="dropdown-divider"></div>
                         @endforeach
@@ -25,22 +25,22 @@
                   <table class="table table-sm">
                     <thead>
                       <tr>
-                        <th style="width: 10px">#</th>
-                        <th>{{ $priceByMonth }}</th>
+                        <th>Month</th>
                         <th>Progress</th>
-                        <th style="width: 40px">Label</th>
+                        <th style="width: 40px">percentage</th>
+                        <th >totol sale</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
-                        <td>1.</td>
-                        <td>Update software</td>
+                        <td>{{ $searchMonth }}</td>
                         <td>
-                          <div class="progress progress-xs">
-                            <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
+                          <div class="progress progress-xs mt-2">
+                            <div class="progress-bar progress-bar-danger" style="width: {{ $percentage }}%"></div>
                           </div>
                         </td>
-                        <td><span class="badge bg-danger">55%</span></td>
+                        <td ><span class="badge bg-danger">{{ $percentage }}%</span></td>
+                        <td class=" d-flex align-items-center"><span class="badge bg-success">{{ $priceByMonth }}</span>{{ __('message.mmk') }}</td>
                       </tr>
                     </tbody>
                   </table>

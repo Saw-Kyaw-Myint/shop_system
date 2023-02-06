@@ -8,9 +8,6 @@
         <li class="nav-item d-none d-sm-inline-block">
             <a href="{{ route('product.index') }}" class="nav-link">Home</a>
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="#" class="nav-link">Contact</a>
-        </li>
     </ul>
 
     <!-- SEARCH FORM -->
@@ -28,32 +25,6 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-        <li class="nav-item dropdown">
-            <a class="nav-link" data-toggle="dropdown" href="#">
-                <i class="far fa-bell"></i>
-                <span class="badge badge-warning navbar-badge">15</span>
-            </a>
-            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                <span class="dropdown-item dropdown-header">15 Notifications</span>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                    <i class="fas fa-envelope mr-2"></i> 4 new messages
-                    <span class="float-right text-muted text-sm">3 mins</span>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                    <i class="fas fa-users mr-2"></i> 8 friend requests
-                    <span class="float-right text-muted text-sm">12 hours</span>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                    <i class="fas fa-file mr-2"></i> 3 new reports
-                    <span class="float-right text-muted text-sm">2 days</span>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-            </div>
-        </li>
               <!-- Messages Dropdown Menu -->
               <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#">
@@ -93,7 +64,7 @@
                     alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">Alexander Pierce</a>
+                <a href="#" class="d-block">{{ auth()->user()->name }}</a>
             </div>
         </div>
 
@@ -149,7 +120,8 @@
                         url()->current() == "http://127.0.0.1:8000/category" 
                           || url()->current() =="http://127.0.0.1:8000/product" 
                           || url()->current() =="http://127.0.0.1:8000/user" 
-                          || url()->current() =="http://127.0.0.1:8000/order" 
+                          || url()->current() =="http://127.0.0.1:8000/order"
+                          || url()->current() =="http://127.0.0.1:8000/user/banList"
                          ? 'active' : ' '}}">
                         <i class="nav-icon fas fa-table"></i>
                         <p>
@@ -182,6 +154,13 @@
                             <a href="{{ route('orderProduct.index') }}" class="nav-link {{ url()->current() == "http://127.0.0.1:8000/order" ? 'active' : ' ' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>order List</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{ route('user.banList') }}" class="nav-link {{ url()->current() == "http://127.0.0.1:8000/user/banList" ? 'active' : ' ' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Ban List</p>
                             </a>
                         </li>
 
