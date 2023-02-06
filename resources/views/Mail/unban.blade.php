@@ -26,7 +26,7 @@
 <body>
     <div class="mail-box">
     <h2>Hello,{{ $data['name'] }}</h2>
-    <h3>Your email has been banned due to privacy concerns </h3>
+    <h3>Your email has been unbanned . </h3>
     <p>Thank you,</p>
 
     </div>

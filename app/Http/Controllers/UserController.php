@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\Ban;
+use App\Mail\UnBanMail;
 use App\Models\BanList;
 use App\Models\Category;
 use App\Models\Product;
@@ -59,28 +60,50 @@ class UserController extends Controller
     {
         $user = User::find($id);
         BanList::create([
-      'email'=>$user->email,
-        ]);  
-    Mail::to($user->email)
-     ->send(new Ban());
+            'email' => $user->email,
+        ]);
+        $data = [
+            'name' => $user->name,
+            'email' => $user->email
+        ];
+        Mail::to($user->email)
+            ->send(new Ban($data));
         $user->delete();
 
         return back();
     }
+    
+    /**
+     * banded User list.
+     *
+     * @return view(banList)
+     */
+    public function banList()
+    {
+        $users = User::onlyTrashed()->get();
 
-    public function banList(){
-     $users=User::onlyTrashed()->get();
-   
-
-     return view('pages.user.banList',compact('users'));
+        return view('pages.user.banList', compact('users'));
     }
 
-    public function unban($id){
-       $user= User::onlyTrashed()->find($id);  
-       $banUser=BanList::where('email','=',$user->email);
-       $banUser->delete();
-       $user->restore();
+    /**
+     * un ban $user.
+     *
+     * @return back()
+     */
+    public function unban($id)
+    {
+        $user = User::onlyTrashed()->find($id);
+        $data = [
+            'name' => $user->name,
+            'email' => $user->email
+        ];
+        Mail::to($user->email)
+            ->send(new UnBanMail($data));
+        $user->delete();
+        $banUser = BanList::where('email', '=', $user->email);
+        $banUser->delete();
+        $user->restore();
 
-       return back();
+        return back();
     }
 }

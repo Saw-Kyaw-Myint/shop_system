@@ -4,7 +4,6 @@ namespace App\Http\Livewire;
 
 use App\Models\Category;
 use App\Models\Product;
-use Illuminate\Contracts\Session\Session;
 use Livewire\Component;
 
 class Productlist extends Component
@@ -27,7 +26,7 @@ class Productlist extends Component
      */
     public function render()
     {
-        return view('livewire.productlist',['products'=>$this->products]);
+        return view('livewire.productlist', ['products' => $this->products]);
     }
 
     /**
@@ -48,7 +47,7 @@ class Productlist extends Component
     public function addToCart($id)
     {
         if (!(auth()->user())) {
-            
+
             return redirect()->route('login.create')->with('warning', "Please login to order product");
         }
         $product = Product::find($id);
