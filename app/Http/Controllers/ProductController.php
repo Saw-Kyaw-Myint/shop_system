@@ -16,7 +16,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::Search(request('q'))->get();
+        $products = Product::Search(request('q'))->latest('id')->paginate(10);
 
         return view('pages.product.index', compact('products'));
     }
@@ -78,7 +78,7 @@ class ProductController extends Controller
     {
         $categories = Category::all();
 
-        return view('pages.product.edi', compact('categories', 'product'));
+        return view('pages.product.edit', compact('categories', 'product'));
     }
 
     /**

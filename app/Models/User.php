@@ -30,18 +30,21 @@ class User extends Authenticatable
     use SoftDeletes;
     protected $dates = ['deleted_at'];
 
-    public function  shooppingCart(){
+    public function  shooppingCart()
+    {
         return $this->hasMany(Shoppingcart::class, 'user_id', 'id');
     }
 
-    public function  scopeSearch($query,$search){
-        return $query->when($search ?? false,function ($q) use ($search){
-        $q->where('title','like',"%$search%");
+    public function  scopeSearch($query, $search)
+    {
+        return $query->when($search ?? false, function ($q) use ($search) {
+            $q->where('title', 'like', "%$search%");
         });
     }
 
-
-
+    public function scopeEmail($query,$email){
+        return    $query->where('email', '=', $email);
+       }
 
     /**
      * The attributes that should be hidden for serialization.

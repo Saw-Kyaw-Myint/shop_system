@@ -104,6 +104,9 @@
 
                                 </tbody>
                             </table>
+                            <div class="d-flex justify-content-center  float-right">
+                                {!! $products->links() !!}
+                            </div>
                         </div>
                         <!-- /.card-body -->
                     </div>

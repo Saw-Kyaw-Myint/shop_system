@@ -32,7 +32,6 @@ class LoginController extends Controller
             'password' => $request->password,
         );
          $banEmail=BanList::where('email','=',$request->email)->get();
-        //  dd($banEmail);
         $input_data = Auth::attempt($user_data);
         if (!$input_data) {
 

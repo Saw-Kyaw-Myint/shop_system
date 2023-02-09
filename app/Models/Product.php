@@ -39,7 +39,13 @@ class Product extends Model
         });
     }
 
-    public function scopeMonth($query,$month){
-        return    $query->whereMonth('created_at',$month);
-       }
+    public function scopeMonth($query, $month)
+    {
+        return    $query->whereMonth('created_at', $month);
+    }
+
+    public function scopeTitle($query, $title)
+    {
+        return $query->where('title', '=', $title);
+    }
 }

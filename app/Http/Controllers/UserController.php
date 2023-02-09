@@ -7,8 +7,11 @@ use App\Mail\UnBanMail;
 use App\Models\BanList;
 use App\Models\Category;
 use App\Models\Product;
+use App\Imports\UsersImport;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Exports\UsersExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
@@ -46,7 +49,7 @@ class UserController extends Controller
      */
     public function list()
     {
-        $users = User::latest('id')->get();
+        $users = User::paginate(5);
 
         return view('pages.user.index', compact('users'));
     }
@@ -104,6 +107,18 @@ class UserController extends Controller
         $banUser->delete();
         $user->restore();
 
+        return back();
+    }
+
+    public function export($page) 
+    {
+        $data = User::paginate(5,['*'], 'page', $page);
+        return Excel::download(new UsersExport($data), 'users.xlsx');
+    }
+
+    public function import(Request $request) 
+    {
+        Excel::import(new UsersImport,$request->file('file'));
         return back();
     }
 }

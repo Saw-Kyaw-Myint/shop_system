@@ -58,6 +58,14 @@ Route::resource('/product',ProductController::class);
 
 //category
 Route::resource('/category',CategoryController::class);
+
+
+//excel
+Route::get('users/export/{page}', [UserController::class, 'export'])->name('user.export');
+Route::get('orders/export/{page}', [OrderProductController::class, 'export'])->name('order.export');
+
+Route::post('users/import/', [UserController::class, 'import'])->name('user.import');
+Route::post('orders/import/', [OrderProductController::class, 'import'])->name('order.import');
 });
 
 
@@ -72,11 +80,11 @@ Route::get('lang/change', [LangController::class, 'change'])->name('changeLang')
 
 //livewire
 
-Route::get('payment-cancel',function(){
-    dd('cancel');
-})->name('payment.cancel');
+// Route::get('payment-cancel',function(){
+//     dd('cancel');
+// })->name('payment.cancel');
 
-Route::get('payment-success',function(){
-    dd('success');
-})->name('payment.success');
+// Route::get('payment-success',function(){
+//     dd('success');
+// })->name('payment.success');
 

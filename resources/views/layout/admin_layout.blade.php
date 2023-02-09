@@ -77,10 +77,10 @@
                 "autoWidth": false,
             });
             $('#example2').DataTable({
-                "paging": true,
+                "paging": false,
                 "lengthChange": false,
-                "searching": false,
-                "ordering": true,
+                "searching": true,
+                //  "order": [[2, 'desc']],
                 "info": true,
                 "autoWidth": false,
                 "responsive": true,

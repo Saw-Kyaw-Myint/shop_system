@@ -25,10 +25,51 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card">
-                        <div class="card-header w-100%  d-flex  align-items-center">
+                        <div class="card-header w-100%  d-flex  align-items-center  justify-content-between">
                             <p class="m-0 text-primary h4">Today Order Price :: <span
                                     class=" text-black-50 bold ">{{ $todayOrderPrice . __('message.mmk') }}</span>
                             </p>
+                            <div class="">
+                                @if (request('page')!=null)
+                                <a href="{{ route('order.export',request('page')) }}" class="btn btn-primary btn-sm">export</a>
+                                @else
+                                <a href="{{ route('order.export',1) }}" class="btn btn-primary btn-sm">export</a>
+                                @endif
+
+                                     <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-warning btn-sm ml-2" data-toggle="modal"
+                            data-target="#exampleModal">
+                            upload
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="{{ route('order.import') }}" method="post"
+                                            enctype="multipart/form-data">
+                                            @csrf
+                                            <input type="file" id="" name="file" class=" form-control p-1">
+
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                            </div>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -37,7 +78,7 @@
                                     <tr>
                                         <th>User</th>
                                         <th>title</th>
-                                        <th>orgin_price</th>
+                                        <th>origin_price</th>
                                         <th>quantity</th>
                                         <th>Order_price</th>
                                         <th>created</th>
@@ -99,6 +140,9 @@
 
                                 </tbody>
                             </table>
+                            <div class="d-flex justify-content-center  float-right">
+                                {!! $orderProducts->links() !!}
+                            </div>
                         </div>
                         <!-- /.card-body -->
                     </div>
