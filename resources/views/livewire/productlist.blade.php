@@ -1,4 +1,39 @@
 <div>
+    <div class="container-fluid pt-5">
+        <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span
+                class="bg-secondary pr-3">{{ __('message.categories') }}</span></h2>
+        <div class="row px-xl-5 pb-3">
+            @foreach ($categories as $category)
+                <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                    <div class="">
+                        <button wire:click='search({{ $category->id }})' class="cat-item btn btn-outline-info shadow border-0  rounded d-flex align-items-center mb-4">
+                            <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                                <img class="img-fluid" src="{{ asset('storage/' . $category->cimage) }}"
+                                    alt="">
+                            </div>
+                            <div class="flex-fill pl-3">
+                                <h6>{{ $category->ctitle }}</h6>
+                                <small class="text-body">100 {{ __('message.products') }}</small>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            @endforeach
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                <div class="">
+                    <button wire:click='search(null)' class="cat-item btn btn-outline-info shadow border-0  rounded d-flex align-items-center mb-4">
+                        {{-- <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                            <img class="img-fluid" src="{{ asset('img/carousel-3.jpg') }}"
+                                alt="">
+                        </div> --}}
+                        <div class="flex-fill">
+                           <p style="width: 190px; height: 90px;" class=" d-flex align-items-center justify-content-center h4">All Category</p>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     @if (session()->has('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -19,13 +54,16 @@
     @endif
 
 
-
     <div class="container-fluid pt-5 pb-3" id="product">
         <div class="d-flex justify-content-between align-content-center">
             <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span
                 class="bg-secondary pr-3">{{ __('message.feature_product') }}</span></h2>
 
-        <div class=" mr-5 round">
+            <div class="mr-5">
+                <p class="h4  bold" style="color: rgb(77, 77, 252)">{{ $searchValue }}</p>
+            </div>
+
+        {{-- <div class=" mr-5 round">
             <a class="btn d-flex align-items-center justify-content-between  bg-secondary  border w-100" data-toggle="collapse"
                 href="#navbar-vertical" style="height: 30px; padding: 0 20px;">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-label="Lists"><path d="M7.5 5.75a2 2 0 0 0-2 2v14a.5.5 0 0 0 .8.4l5.7-4.4 5.7 4.4a.5.5 0 0 0 .8-.4v-14a2 2 0 0 0-2-2h-9z" fill="currentColor"></path><path d="M12.5 2.75h-8a2 2 0 0 0-2 2v11.5" stroke="currentColor" stroke-linecap="round"></path></svg>
@@ -42,28 +80,20 @@
                         @endforeach
                 </div>
             </nav>
-        </div>        
+        </div>         --}}
         </div>
 
         <div class="row px-xl-5">
 
             @foreach ($products as $product)
-                <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                    <div class="product-item bg-light mb-4">
+                <div class="col-lg-3 col-md-4 col-sm-6 pb-1 ">
+                    <div class="product-item bg-light mb-4 shadow">
                         <div class="product-img position-relative overflow-hidden">
                             <img class="img-fluid w-100" src="{{ asset('storage/' . $product->image) }}" alt="">
                             <div class="product-action">
                                 <button class="btn btn-outline-dark btn-square cart-item"
                                     wire:click="addToCart({{ $product->id }})"><i
                                         class="fa fa-shopping-cart"></i></button>
-{{-- 
-
-                                <button class="btn btn-outline-dark btn-square cart-item"><i
-                                        class="far fa-heart"></i></button>
-                                <button class="btn btn-outline-dark btn-square cart-item"><i
-                                        class="fa fa-sync-alt"></i></button>
-                                <button class="btn btn-outline-dark btn-square cart-item"><i
-                                        class="fa fa-search"></i></button> --}}
                             </div>
                         </div>
                         <div class="text-center py-4">

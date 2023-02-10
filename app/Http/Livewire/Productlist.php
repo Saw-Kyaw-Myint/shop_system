@@ -8,15 +8,15 @@ use Livewire\Component;
 
 class Productlist extends Component
 {
-    public $products, $latestProducts, $categories;
-
+    public $products, $latestProducts, $categories, $searchValue;
+    protected $listeners = ['productList' => 'index'];
     /**
      * @return respone
      */
     public function mount()
-    {
+    {  
         $this->categories = Category::has('products')->with('products')->get();
-        $this->products = Product::Search(request('q'))->latest('id')->get();
+             $this->index('');
     }
 
     /**
@@ -25,8 +25,11 @@ class Productlist extends Component
      * @return view('productList')
      */
     public function render()
-    {
-        return view('livewire.productlist', ['products' => $this->products]);
+    {   
+        $category=session()->get('category');
+        // dd($category);
+        $this->search($category);
+        return view('livewire.productlist');
     }
 
     /**
@@ -36,7 +39,21 @@ class Productlist extends Component
      */
     public function search($category)
     {
+        session()->put('category',$category);
         $this->products = Product::Filter($category)->get();
+    }
+
+    public function index($request)
+    {
+     
+        $this->products = Product::Search($request)->get();
+        dd($this->product);
+        if ((strlen($request)) == 0) {
+            $this->searchValue = $request;
+        } else {
+            $this->searchValue = 'Result for :  ' . $request;
+        }
+
     }
 
     /**

@@ -115,34 +115,6 @@
     </div>
     <!-- Featured End -->
 
-
-    <!-- Categories Start -->
-    <div class="container-fluid pt-5">
-        <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span
-                class="bg-secondary pr-3">{{ __('message.categories') }}</span></h2>
-        <div class="row px-xl-5 pb-3">
-            @foreach ($categories as $category)
-                <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                    <a class="text-decoration-none" href="">
-                        <div class="cat-item d-flex align-items-center mb-4">
-                            <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                                <img class="img-fluid" src="{{ asset('storage/' . $category->cimage) }}"
-                                    alt="">
-                            </div>
-                            <div class="flex-fill pl-3">
-                                <h6>{{ $category->ctitle }}</h6>
-                                <small class="text-body">100 {{ __('message.products') }}</small>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            @endforeach
-
-        </div>
-    </div>
-    <!-- Categories End -->
-
-
     <!-- Products Start -->
 
     <livewire:productlist />
@@ -191,14 +163,6 @@
                             <img class="img-fluid w-100" src="{{ asset('storage/' . $lproduct->image) }}"
                                 alt="">
                             <div class="product-action">
-                                {{-- <button class="btn btn-outline-dark btn-square cart-item"><i
-                                        class="fa fa-shopping-cart cart-item"></i></button>
-                                <buserutton class="btn btn-outline-dark btn-square cart-item"><i
-                                        class="far fa-heart"></i></buserutton>
-                                <button class="btn btn-outline-dark btn-square cart-item" ><i
-                                        class="fa fa-sync-alt"></i></button>
-                                <button class="btn btn-outline-dark btn-square cart-item" ><i
-                                        class="fa fa-search"></i></button> --}}
                             </div>
                         </div>
                         <div class="text-center py-4">

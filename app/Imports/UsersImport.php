@@ -31,8 +31,6 @@ class UsersImport implements ToModel,WithValidation
             '1'=> 'required|unique:users,email',
             '2' => [
                 'required',
-                Password::min(6)
-                ->numbers()
             ],
         ];
     }

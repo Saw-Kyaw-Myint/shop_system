@@ -22,10 +22,19 @@
 
         <!-- Main content -->
         <section class="content">
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
             <div class="row">
                 <div class="col-12">
                     <div class="card">
-                        <div class="card-header w-100%  d-flex  align-items-center  justify-content-between">
+                        <div class="card-header  d-flex  align-items-center  justify-content-between">
                             <p class="m-0 text-primary h4">Today Order Price :: <span
                                     class=" text-black-50 bold ">{{ $todayOrderPrice . __('message.mmk') }}</span>
                             </p>

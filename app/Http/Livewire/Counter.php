@@ -17,7 +17,6 @@ class Counter extends Component
     public function render()
     {
         $this->cartCount();
-
         return view('livewire.counter');
     }
 
