@@ -25,7 +25,7 @@ class StoreLoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|unique:ban_lists,email|email:rfc,dns',
+            'email' => 'required|unique:ban_lists,email',
             'password' => [
                 'required',
                 Password::min(6)

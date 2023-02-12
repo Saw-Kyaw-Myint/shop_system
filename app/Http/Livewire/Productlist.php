@@ -14,9 +14,9 @@ class Productlist extends Component
      * @return respone
      */
     public function mount()
-    {  
+    {
         $this->categories = Category::has('products')->with('products')->get();
-             $this->index('');
+        $this->index('');
     }
 
     /**
@@ -25,10 +25,12 @@ class Productlist extends Component
      * @return view('productList')
      */
     public function render()
-    {   
+    {
         $category=session()->get('category');
-        // dd($category);
-        $this->search($category);
+        if($category){
+            $this->search($category);
+        }
+
         return view('livewire.productlist');
     }
 
@@ -45,15 +47,14 @@ class Productlist extends Component
 
     public function index($request)
     {
-     
+        //dd($request);
         $this->products = Product::Search($request)->get();
-        dd($this->product);
+        //dd($this->products);
         if ((strlen($request)) == 0) {
             $this->searchValue = $request;
         } else {
             $this->searchValue = 'Result for :  ' . $request;
         }
-
     }
 
     /**

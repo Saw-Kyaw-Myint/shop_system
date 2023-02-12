@@ -87,8 +87,7 @@
             });
         });
     </script>
-
-@livewireScripts
+ @livewireScripts
 </body>
 
 </html>

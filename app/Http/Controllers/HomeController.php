@@ -24,7 +24,7 @@ class HomeController extends Controller
         $totalProduct = Product::count();
         $totalUser = User::count();
         $totalCategory = Category::count();
-        // for graph 
+        // for graph
         $countOrderByMonth = [];
         $chartMonths = [];
         $months = [];
@@ -33,7 +33,7 @@ class HomeController extends Controller
             $months[] = Carbon::now()->subMonth($i)->format('m');
             $chartMonths[] = Carbon::now()->subMonth($i)->format('F');
         }
-        // for cartegory by product 
+        // for cartegory by product
         $categoryArray = [];
         $categoryProduct = [];
         $Categories = Category::all();
@@ -46,7 +46,6 @@ class HomeController extends Controller
             $productData = Product::Month($c)->count();
             $countOrderByMonth[] = $data;
         }
-
         return view('admin.index', compact('products', 'orderCount', 'totalProduct', 'totalUser', 'totalCategory', 'chartMonths', 'countOrderByMonth', 'categoryArray', 'categoryProduct'));
     }
 }
