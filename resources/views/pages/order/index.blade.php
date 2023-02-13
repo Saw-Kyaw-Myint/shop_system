@@ -96,7 +96,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($orderProducts as $order)
-                                    <tr>
+                                    <tr class="{{ $order->confirm==1 ? 'bg-success':' ' }}">
                                         <td>{{ $order->user->name }}
                                         </td>
                                         <td>{{ $order->product->title }}</td>
@@ -110,6 +110,13 @@
                                                 data-target="#exampleModal">
                                                 Delete
                                             </button>
+
+                                            @if ($order->confirm !=1)
+                                            <a href="{{ route('home.confirm',$order->id) }}" class="btn btn-success btn-sm ml-2">confirm</a>
+                                            @endif  
+                                            @if ($order->cancel==1)
+                                              <a href='{{ route('home.cancel',$order->id) }}' class="btn btn-warning btn-sm ml-2">Request Can</a>
+                                            @endif
 
                                             <!-- Modal -->
                                             <div class="modal fade" id="exampleModal" tabindex="-1"
@@ -138,6 +145,7 @@
                                                                 @method('delete')
                                                                 <button
                                                                     class="btn btn-sm btn-danger">Delete</button>
+                                                                    
                                                             </form>
                                                         </div>
                                                     </div>

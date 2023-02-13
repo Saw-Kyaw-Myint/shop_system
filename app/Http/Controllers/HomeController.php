@@ -48,4 +48,5 @@ class HomeController extends Controller
         }
         return view('admin.index', compact('products', 'orderCount', 'totalProduct', 'totalUser', 'totalCategory', 'chartMonths', 'countOrderByMonth', 'categoryArray', 'categoryProduct'));
     }
+
 }

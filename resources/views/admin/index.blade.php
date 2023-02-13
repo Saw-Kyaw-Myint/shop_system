@@ -149,10 +149,8 @@
                                     <div class="tab-content p-0">
                                         <!-- Morris chart - Sales -->
                                         <div class="chart tab-pane active " id="revenue-chart"
-                                            style="position: relative; height: 300px;">
-                                            <canvas id="revenue-chart-canvas" height="600"
-                                                style="height: 100%; display: block; width: 894px;" width="1117"
-                                                class="chartjs-render-monitor"></canvas>
+                                            style="">
+                                            <livewire:chart></livewire:chart>
                                         </div>
                                         <div class="chart tab-pane" id="sales-chart"
                                             style="position: relative; height: 300px; width:100%;">
@@ -237,10 +235,6 @@
                     </div>
                     <!-- /.card -->
                 </section>
-
-                <div class="col-lg-7">
-             <livewire:chart></livewire:chart>
-                </div>
                 <!-- right col -->
             </div>
 
@@ -297,10 +291,7 @@
         let countOrderByMonth = {!! json_encode($countOrderByMonth) !!};
         let category = {!! json_encode($categoryArray) !!};
         let categoryProduct = {!! json_encode($categoryProduct) !!};
-
-
         const ctx = document.getElementById('sales-chart-canvas');
-
         new Chart(ctx, {
             type: 'bar',
             data: {

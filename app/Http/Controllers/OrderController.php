@@ -54,6 +54,7 @@ class OrderController extends Controller
     public function store(StoreOrderRequest $request)
     {
         $addCart = session()->get('cart');
+        // return $addCart;
         foreach ($addCart as $key => $orderCart) {
             if (isset($orderCart['product'])) {
                 $product_id = $orderCart['product'];

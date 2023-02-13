@@ -29,6 +29,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/',[UserController::class, 'index'])->name('index');
 Route::resource('/order',OrderController::class);
 Route::get('/shoopingcart',[UserController::class, 'addCart'])->name('addcart');
+Route::get('/detail/order',[UserController::class, 'orderList'])->name('order.detail');
+    
 
 
 //auth
@@ -52,6 +54,8 @@ Route::get('/user/unban/{id}',[UserController::class, 'unban'])->name('user.unba
 Route::delete('/user/{id}',[UserController::class, 'destroy'])->name('user.destroy');
 Route::get('/order',[OrderProductController::class,'index'])->name('orderProduct.index');
 Route::get('/orderMonths/{moth}',[OrderProductController::class, 'monthIncome'])->name('month.order');
+Route::get('/order/confim/{id}',[OrderProductController::class,'confirm'])->name('home.confirm');
+Route::get('/order/cancel/{id}',[OrderProductController::class,'cancel'])->name('home.cancel');
 
 //product
 Route::resource('/product',ProductController::class);
@@ -76,6 +80,8 @@ Route::get('/{category}',[Productlist::class,'search'])->name('category.search')
 //lang
 Route::get('lang/home', [LangController::class, 'index']);
 Route::get('lang/change', [LangController::class, 'change'])->name('changeLang');
+
+
 
 
 //livewire

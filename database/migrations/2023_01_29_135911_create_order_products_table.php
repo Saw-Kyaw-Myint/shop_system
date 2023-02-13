@@ -18,6 +18,8 @@ return new class extends Migration
             $table->integer('quantity');
             $table->foreignId('product_id')->constrained()->cascadeOnDelete();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->integer('cancel')->default(0);
+            $table->integer('confirm')->default(0);
             $table->timestamps();
         });
     }

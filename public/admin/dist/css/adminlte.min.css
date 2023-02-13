@@ -316,7 +316,18 @@ input[type=month],
 input[type=time] {
     -webkit-appearance: listbox
 }
-
+#chart-date{
+    border: 2px solid #0097e6;
+    background: none;
+    display: inline-block;
+    padding: 4px 26px;
+    width: 150px;
+    outline: none;
+    /* color: white; */
+    border-radius: 10px;
+    text-align: center;
+    transition: 250ms width ease, 250ms border-color ease;
+}
 textarea {
     overflow: auto;
     resize: vertical

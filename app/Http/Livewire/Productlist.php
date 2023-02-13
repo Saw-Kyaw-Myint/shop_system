@@ -81,7 +81,6 @@ class Productlist extends Component
                     "image" => $product->image,
                     "description" => $product->description,
                     "quantity" => 1,
-                    "user_id" => auth()->user()->id,
                     "price" => $product->price,
                     "category_id" => $product->category_id,
                 ],
@@ -99,6 +98,7 @@ class Productlist extends Component
             return redirect()->back()->with('success', 'Product added to cart successfully!');
         }
         $cart[$id] = [
+            "product" => $product->id,
             "title" => $product->title,
             "image" => $product->image,
             "description" => $product->description,

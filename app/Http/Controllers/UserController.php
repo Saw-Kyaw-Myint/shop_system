@@ -11,6 +11,7 @@ use App\Imports\UsersImport;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Exports\UsersExport;
+use App\Models\orderProduct;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Mail;
 
@@ -120,5 +121,9 @@ class UserController extends Controller
     {
         Excel::import(new UsersImport,$request->file('file'));
         return back();
+    }
+
+    public function orderList(){
+       return view('order_list');
     }
 }

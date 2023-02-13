@@ -17,7 +17,7 @@ class OrderProductController extends Controller
      */
     public function index()
     {
-        $orderProducts = orderProduct::paginate(5);
+        $orderProducts = orderProduct::where('cancel','<>',2)->paginate(5);
         $todayOrderPrice = 0;
         $today = date('Y-m-d');
         $todayOrder = orderProduct::with('product')->Today($today)->get();
@@ -48,5 +48,18 @@ class OrderProductController extends Controller
         Excel::import(new OrdersImport,$request->file('file'));
 
         return back();
+    }
+    
+
+    public function  confirm($id){
+        $order=orderProduct::find($id);
+         $order->confirm=1;
+         $order->update();
+         return back();
+    }
+    public function  cancel($id){
+        $order=orderProduct::find($id);
+         $order->delete();
+         return back();
     }
 }

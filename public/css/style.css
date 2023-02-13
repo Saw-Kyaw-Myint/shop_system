@@ -47,6 +47,10 @@
     margin-top: 210px;
 }
 
+.confirm{
+  border: 3px solid #30ff4b !important;
+}
+
 .whole-header{
   position: fixed;
   z-index: 1005;
