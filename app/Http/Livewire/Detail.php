@@ -10,6 +10,8 @@ class Detail extends Component
     public $productId;
     public $product;
     public $relatedProduct;
+    public $comment;
+    
 
 
     public function mount($productId)
@@ -73,4 +75,5 @@ class Detail extends Component
         // dd('success');
         return redirect()->back()->with('success', 'Product added to cart successfully!');
     }
+
 }

@@ -53,4 +53,14 @@ class Product extends Model
     {
         return  $query->where('category_id','=',$category)->where('id','<>',$id); 
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable')->whereNull('parent_id');
+    }
 }
