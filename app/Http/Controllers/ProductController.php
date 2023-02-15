@@ -134,4 +134,8 @@ class ProductController extends Controller
 
         return view('index', compact('products', 'categories', 'latestProducts'));
     }
+
+    public function  detail($id){
+       return view('detail',compact('id'));
+    }
 }

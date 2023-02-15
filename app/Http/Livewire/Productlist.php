@@ -5,11 +5,13 @@ namespace App\Http\Livewire;
 use App\Models\Category;
 use App\Models\Product;
 use Livewire\Component;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class Productlist extends Component
 {
     public $products, $latestProducts, $categories, $searchValue;
-    protected $listeners = ['productList' => 'index'];
+    protected $listener = ['productList' => 'index'];
+    protected $listeners = ['productAdd' => 'addToCart'];
     /**
      * @return respone
      */
@@ -47,9 +49,9 @@ class Productlist extends Component
 
     public function index($request)
     {
-        //dd($request);
+        // dd($request);
         $this->products = Product::Search($request)->get();
-        //dd($this->products);
+        // dd($this->products);
         if ((strlen($request)) == 0) {
             $this->searchValue = $request;
         } else {
@@ -65,7 +67,6 @@ class Productlist extends Component
     public function addToCart($id)
     {
         if (!(auth()->user())) {
-
             return redirect()->route('login.create')->with('warning', "Please login to order product");
         }
         $product = Product::find($id);
@@ -88,12 +89,23 @@ class Productlist extends Component
             session()->put('cart', $cart);
             $this->emit('updateCartCount');
 
+            $this->dispatchBrowserEvent('swal', [
+                'title' => 'Order id Successfully',
+                'icon'=>'success',
+                // 'iconColor'=>'blue',
+            ]);
+
             return redirect()->back()->with('success', 'added to cart successfully!');
         }
         if (isset($cart[$id])) {
             $cart[$id]['quantity']++;
             $this->emit('cartSummery');
             session()->put('cart', $cart);
+          
+            $this->dispatchBrowserEvent('swal', [
+                'title' => 'Order is successfully',
+                'icon'=>'success',
+            ]);
 
             return redirect()->back()->with('success', 'Product added to cart successfully!');
         }
@@ -107,8 +119,18 @@ class Productlist extends Component
             "price" => $product->price,
         ];
         $this->emit('updateCartCount');
+
         session()->put('cart', $cart);
 
+        $this->dispatchBrowserEvent('swal', [
+            'title' => 'Order is successfully',
+            'icon'=>'success',
+        ]);
+
         return redirect()->back()->with('success', 'Product added to cart successfully!');
+    }
+
+    public function detail(){
+        return view('livewire.detail');
     }
 }

@@ -81,7 +81,7 @@ class OrderController extends Controller
             Mail::to(auth()->user()->email)
                 ->send(new OrderMail());
             session()->forget('cart');
-
+  
             return redirect()->route('index')->with('success', 'order is successfully');
         }
     }

@@ -48,4 +48,9 @@ class Product extends Model
     {
         return $query->where('title', '=', $title);
     }
+
+    public function scopeRelated($query, $category,$id)
+    {
+        return  $query->where('category_id','=',$category)->where('id','<>',$id); 
+    }
 }

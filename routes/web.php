@@ -30,6 +30,7 @@ Route::get('/',[UserController::class, 'index'])->name('index');
 Route::resource('/order',OrderController::class);
 Route::get('/shoopingcart',[UserController::class, 'addCart'])->name('addcart');
 Route::get('/detail/order',[UserController::class, 'orderList'])->name('order.detail');
+Route::get('/detail/{id}',[ProductController::class, 'detail'])->name('product.detail');
     
 
 

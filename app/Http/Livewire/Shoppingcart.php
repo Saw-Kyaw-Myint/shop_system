@@ -66,7 +66,12 @@ class Shoppingcart extends Component
             }
 
             $this->emit('updateCartCount');
-            session()->flash('success', 'Product removed successfully');
+
+            $this->dispatchBrowserEvent('remove', [
+                'title' => 'Order is remove',
+                'icon'=>'warning',
+            ]);
+
         }
         session()->flash('success', 'product is removed from cart');
     }

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    {{-- livewire  --}}
+    {{-- livewire --}}
     @livewireStyles
 
     <title>MultiShop - Online Shop Website Template</title>
@@ -36,15 +36,19 @@
     <div>
 
 
-@include('layout.user_nav')
+        @include('layout.user_nav')
 
-@yield('contact')
+        @yield('contact')
 
- @include('layout.footer')
+        @include('layout.footer')
 
     </div>
     <!-- JavaScript Libraries -->
+    @livewireScripts
+
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.5/dist/sweetalert2.min.css" />
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('lib/easing/easing.min.js') }}"></script>
     <script src="{{ asset('lib/owlcarousel/owl.carousel.min.js') }}"></script>
@@ -52,9 +56,9 @@
     <!-- Contact Javascript File -->
     <script src="{{ asset('mail/jqBootstrapValidation.min.js') }}"></script>
     <script src="{{ asset('mail/contact.js') }}"></script>
-
     <!-- Template Javascript -->
     <script src="{{ asset('js/main.js') }}"></script>
+
     <script>
         var url = "{{ route('changeLang') }}";
 
@@ -62,9 +66,36 @@
             window.location.href = url + "?lang=" + $(this).val();
         });
 
+        window.addEventListener('swal',function(e) {
+        Swal.fire({
+            title:  e.detail.title,
+            icon: e.detail.icon,
+            iconColor: e.detail.iconColor,
+            timer: 3000,
+            toast: true,
+            position: 'top',
+            toast:  true,
+            showConfirmButton:  false,
+        });
+    });
+
+    window.addEventListener('remove',function(e) {
+        Swal.fire({
+            title:  e.detail.title,
+            icon: e.detail.icon,
+            iconColor: e.detail.iconColor,
+            timer: 3000,
+            toast: true,
+            position: 'top',
+            toast:  true,
+            showConfirmButton:  false,
+        });
+    });
+
         //live wire
+
     </script>
-    @livewireScripts
+   
 </body>
 
 </html>
