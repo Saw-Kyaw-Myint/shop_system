@@ -46,18 +46,18 @@
             <div class="col">
                 <div class="bg-light p-30">
                     <div class="nav nav-tabs mb-4">
-                        <a class="nav-item nav-link text-dark active" data-toggle="tab"
+                        <a class="nav-item nav-link text-dark active " data-toggle="tab"
                             href="#tab-pane-1">Description</a>
                         {{-- <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-2">Information</a>
                         --}}
-                        <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-3">Reviews (0)</a>
+                        <a class="nav-item nav-link text-dark " data-toggle="tab" href="#tab-pane-3">Reviews</a>
                     </div>
                     <div class="tab-content">
-                        <div class="tab-pane fade show active" id="tab-pane-1">
+                        <div class="tab-pane fade show active " id="tab-pane-1">
                             <h4 class="mb-3">Product Description</h4>
                             <p>{{ $product->description }}</p>
                         </div>
-                        <div class="tab-pane fade" id="tab-pane-3">
+                        <div class="tab-pane fade " id="tab-pane-3">
                              <livewire:comment :Product="$product->id"></livewire:comment>
                         </div>
                     </div>
@@ -78,7 +78,7 @@
                     @foreach ($relatedProduct as $related)
 
                     <div class="product-item bg-light position-relative">
-                        <a href="{{ route('product.detail',$product->id) }}">
+                        <a href="{{ route('product.detail',$related->id) }}">
                             <div class="product-img position-relative overflow-hidden">
                                 <img class="img-fluid w-100" src="{{ asset('storage/'. $related->image) }}" alt="">
                                 <div class="product-action">

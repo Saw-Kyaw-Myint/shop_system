@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Comment as ModelsComment;
 use App\Models\Product;
 use Livewire\Component;
 
@@ -10,6 +11,9 @@ class Comment extends Component
 
     public $commentProduct;
     public $comment;
+    public $productName;
+    public $comments;
+    public $commentCount;
 
     public function mount($product)
     {
@@ -18,21 +22,33 @@ class Comment extends Component
 
     public function render()
     {
+        $product= Product::find($this->commentProduct);
+        $this->productName=$product->title;
+        $this->comments=$product->comments;
+        $this->commentCount=count($this->comments);
+        // dd($this->commentCount);
         return view('livewire.comment');
     }
 
     public function addComment()
     {
-        // $comment = new Comment(['comment'=>trim($this->comment),'user_id'=>auth()->user()->id, ]);
+        if (!(auth()->user())) {
+            $this->comment=" ";
+            return redirect()->route('login.create');
+        }
 
         $data = [
             'comment' => trim($this->comment),
             'user_id' => auth()->user()->id,
         ];
-        $comment = new Comment($data);
         $product = Product::find($this->commentProduct);
-        $comment->commentable_type = get_class($product);
-        $comment->commentable_id = $product->id;
-        $comment->save();
+         $product->comments()->create($data);
+        $this->comment=" ";
+        // $this->emit('updateReviewCount'); 
+        
+    }
+
+    public  function deleteComment($id){
+            ModelsComment::where('id', $id)->delete();
     }
 }

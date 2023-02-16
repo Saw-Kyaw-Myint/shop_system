@@ -1,39 +1,29 @@
 <div>
     <div class="row">
         <div class="col-md-6">
-            <h4 class="mb-4">1 review for "Product Name"</h4>
-            <div class="media mb-4">
-                <img src="{{ asset('img/product-2.jpg') }}" alt="Image"
-                    class="img-fluid mr-3 mt-1" style="width: 45px;">
-                <div class="media-body">
-                    <h6>John Doe<small> - <i>01 Jan 2045</i></small></h6>
-                    <div class="text-primary mb-2">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                        <i class="far fa-star"></i>
+            <h4 class="mb-4">{{ $commentCount }} review for <span class="text-info"> "{{ $productName }}"</span></h4>
+            @foreach ($comments as $comment)
+            <div class="media mb-3 border rounded p-2 position-relative">
+                <img src="{{ asset('img/person.jpg') }}" alt="Image"
+                    class="img-fluid mr-3 mt-1" style="width: 45px;"  onerror="this.onerror=null;this.src='{{ asset('img/person.jpg') }}';">
+                <div class="media-body ">
+                    <div class=" d-flex  align-items-center justify-content-between">
+                        <h6>{{ $comment->user->name }}<small> - <i>{{ $comment->created_at->diffForHumans() }}</i></small> </h6>
+                        @if (auth()->user() && auth()->user()->id==$comment->user->id)
+                        <button wire:click="deleteComment({{ $comment->id }})" class=" border-0 bg-transparent position-absolute text-danger" style="top: -2px ; right:5px">x</button>
+                        @endif
                     </div>
-                    <p>Diam amet duo labore stet elitr ea clita ipsum, tempor labore accusam
-                        ipsum et no at. Kasd diam tempor rebum magna dolores sed sed eirmod
-                        ipsum.</p>
+                   
+                    <p class="m-0">{{ $comment->comment }}</p>
                 </div>
             </div>
+            @endforeach
+         
         </div>
         <div class="col-md-6">
             <h4 class="mb-4">Leave a review</h4>
             <small>Your email address will not be published. Required fields are marked
                 *</small>
-            <div class="d-flex my-3">
-                <p class="mb-0 mr-2">Your Rating * :</p>
-                <div class="text-primary">
-                    <i class="far fa-star"></i>
-                    <i class="far fa-star"></i>
-                    <i class="far fa-star"></i>
-                    <i class="far fa-star"></i>
-                    <i class="far fa-star"></i>
-                </div>
-            </div>
             <form wire:submit.prevent="addComment()">
                 <div class="form-group">
                     <label for="message">Your Review *</label>
