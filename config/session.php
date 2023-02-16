@@ -35,6 +35,13 @@ return [
 
     'expire_on_close' => false,
 
+
+    'admin' => [
+        'driver' => env('SESSION_DRIVER', 'file'),
+        'lifetime' => 240,
+        'expire_on_close' => true,
+    ],
+    
     /*
     |--------------------------------------------------------------------------
     | Session Encryption
@@ -133,6 +140,7 @@ return [
 
     // 'cookie' => 'admin_session',
     'cookie' => 'shop_session',
+    
 
     /*
     |--------------------------------------------------------------------------

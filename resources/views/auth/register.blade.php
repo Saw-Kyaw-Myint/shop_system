@@ -11,7 +11,12 @@
 		<input type="checkbox" id="chk" aria-hidden="true">
 	<center>
 			<div class="signup">
-				<form method="post" action="{{ route('register.store') }}">
+				<div class="card-body">
+                    @isset($route)
+                        <form method="POST" action="{{ $route }}">
+                    @else
+                        <form method="POST" action="{{ route('register.store') }}">
+                    @endisset
 					@csrf
 					<label for="chk" aria-hidden="true">Sign up</label>
 					<input type="text" name="name" placeholder="User name" value="{{ old('name') }}">

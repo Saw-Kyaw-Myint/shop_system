@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Slide Navbar</title>
+	<title>{{ $title ?? "" }} login</title>
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/authcss/register.css') }}">
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
 </head>
@@ -22,7 +22,12 @@
 		<input type="checkbox" id="chk" aria-hidden="true">
 			<div class="signup">
 				<center>
-				<form action="{{ route('login.store') }}" method="POST">
+					@isset($route)
+					<form method="POST" action="{{ $route }}">
+				@else
+					<form method="POST" action="{{ route('login.store') }}">
+				@endisset
+				
 					@csrf
 					<label for="chk" aria-hidden="true">Sign in</label>
 					<input type="email" name="email" placeholder="Email" value="{{ old('email') }}">

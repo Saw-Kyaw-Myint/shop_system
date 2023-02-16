@@ -26,7 +26,7 @@ class StoreRegisterRequest extends FormRequest
     {
         return [
             'name' => 'required|unique:users,name',
-            'email' => 'required|unique:users,email|email:rfc,dns',
+            'email' => 'required|unique:users,email|unique:admins,email|email:rfc,dns',
             'password' => [
                 'required',
                 Password::min(6)

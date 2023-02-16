@@ -39,15 +39,23 @@ Route::group(['middleware' => ['auth']], function () {
 //register
 Route::get('/register',[RegisterController::class, 'create'])->name('register.create');
 Route::post('/register',[RegisterController::class, 'store'])->name('register.store');
+
 //Login
 Route::get('/login',[LoginController::class, 'create'])->name('login.create');
 Route::post('/login',[LoginController::class, 'store'])->name('login.store');
+
+//admin  
+Route::get('/admin/login',[LoginController::class,'showAdminLoginForm'])->name('admin.login-view');
+Route::post('/admin/login',[LoginController::class,'adminLogin'])->name('admin.login');
+
+Route::get('/admin/register',[RegisterController::class,'showAdminRegisterForm'])->name('admin.register-view');
+Route::post('/admin/register',[RegisterController::class,'createAdmin'])->name('admin.register');
 });
 
 Route::get('/logout',[LoginController::class, 'logout'])->name('logout');
 
 //Admin
-Route::group(['middleware' => ['admin']], function () {
+// Route::group(['middleware' => ['admin']], function () {
 Route::get('/dashboard',[HomeController::class, 'index'])->name('home.index');
 Route::get('/user',[UserController::class, 'list'])->name('user.list');
 Route::get('/user/banList',[UserController::class, 'banList'])->name('user.banList');
@@ -71,7 +79,7 @@ Route::get('orders/export/{page}', [OrderProductController::class, 'export'])->n
 
 Route::post('users/import/', [UserController::class, 'import'])->name('user.import');
 Route::post('orders/import/', [OrderProductController::class, 'import'])->name('order.import');
-});
+// });
 
 
 

@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Models;
-
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -9,11 +8,12 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class User extends Authenticatable
+class Admin extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use Notifiable;
 
-    protected $guard = "user";
+    
+    protected $guard = "admin";
     /**
      * The attributes that are mass assignable.
      *
@@ -30,22 +30,6 @@ class User extends Authenticatable
 
     use SoftDeletes;
     protected $dates = ['deleted_at'];
-
-    public function  shooppingCart()
-    {
-        return $this->hasMany(Shoppingcart::class, 'user_id', 'id');
-    }
-
-    public function  scopeSearch($query, $search)
-    {
-        return $query->when($search ?? false, function ($q) use ($search) {
-            $q->where('title', 'like', "%$search%");
-        });
-    }
-
-    public function scopeEmail($query,$email){
-        return    $query->where('email', '=', $email);
-       }
 
     /**
      * The attributes that should be hidden for serialization.
