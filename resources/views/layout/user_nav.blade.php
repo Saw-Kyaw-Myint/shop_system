@@ -33,7 +33,7 @@
                                 @else
                                     <a href="{{ route('logout') }}"
                                         class=" dropdown-item">{{ __('message.logout') }}</a>
-                                    <a href="{{ route('order.detail') }}" class="dropdown-item">order</a>
+                                    <a href="{{ route('order.detail') }}" class="dropdown-item">{{ __('message.orders') }}</a>
                                 @endif
                             @else
                                 <button class="dropdown-item" type="button"><a

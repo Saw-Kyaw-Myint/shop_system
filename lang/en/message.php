@@ -64,4 +64,5 @@ return [
     'total_order_product'=>'Total Order Product',
     'dashboard'=>'Dashboard',
     'logout'=>'logout',
+    'orders'=>'orders'
 ];

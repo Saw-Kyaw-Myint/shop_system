@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Mail;
 class RegisterController extends Controller
 {
 
-     /**
+    /**
      * Where to redirect users after registration.
      *
      * @var string
@@ -28,29 +28,47 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        // $this->middleware('guest');
-        // $this->middleware('guest:admin');
     }
 
-
+    /**
+     *
+     * @return view(auth.register)
+     */
     public function showAdminRegisterForm()
     {
-        return view('auth.register', ['route' => route('admin.register'), 'title'=>'Admin']);
+        return view('auth.register', ['route' => route('admin.register'), 'title' => 'Admin']);
     }
 
-
+    /**
+     * Store the specified resource in storage.
+     *
+     * @param  \App\Http\Requests\StoreRegisterRequest  $request
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
     protected function createAdmin(StoreRegisterRequest $request)
     {
-        // $this->validator($request->all())->validate();
         $admin = Admin::create([
             'name' => $request['name'],
             'email' => $request['email'],
             'password' => Hash::make($request['password']),
         ]);
+        $user_data = array(
+            'email' => $request->email,
+            'password' => $request->password,
+        );
+        $input_data = Auth::guard('admin')->attempt($user_data);
 
-        // return redirect()->intended('admin');
+        if ($input_data) {
+            Mail::to(Auth::guard('admin')->user()->email)
+            ->send(new RegisterMail());
+
+            return  redirect()->intended('/dashboard');
+        }
+        
         return  redirect()->route('login.create');
     }
+
     /**
      *
      * @return view(auth.register)
@@ -60,7 +78,7 @@ class RegisterController extends Controller
         return view('auth.register');
     }
 
-   /**
+    /**
      * Store the specified resource in storage.
      *
      * @param  \App\Http\Requests\StoreRegisterRequest  $request

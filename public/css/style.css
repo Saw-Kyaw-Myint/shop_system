@@ -9662,6 +9662,7 @@ a.text-dark:hover, a.text-dark:focus {
   top: 30%;
   left: 40%;
   display: flex;
+  z-index: 1000 !important;
   align-items: center;
   justify-content: center;
   transition: .5s;

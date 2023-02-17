@@ -15,7 +15,7 @@ class SearchProduct extends Component
     
     public function search(){
     session()->forget('category');
-    $this->emit('productList',trim($this->q));
-    $this->q=' ';
+    $this->emit('productSearch',trim($this->q));
+    $this->q=" ";
     }
 }

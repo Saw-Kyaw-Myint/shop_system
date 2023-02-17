@@ -158,12 +158,11 @@
         <div class="row px-xl-5">
             @foreach ($latestProducts as $lproduct)
                 <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                    <a href="{{ route('product.detail',$lproduct->id) }}">
                     <div class="product-item bg-light mb-4">
                         <div class="product-img position-relative overflow-hidden">
                             <img class="img-fluid w-100" src="{{ asset('storage/' . $lproduct->image) }}"
                                 alt="">
-                            <div class="product-action">
-                            </div>
                         </div>
                         <div class="text-center py-4">
                             <a class="h6 text-decoration-none text-truncate"
@@ -183,6 +182,7 @@
                             </div>
                         </div>
                     </div>
+                </a>
                 </div>
             @endforeach
         </div>

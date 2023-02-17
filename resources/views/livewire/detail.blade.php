@@ -78,11 +78,10 @@
                     @foreach ($relatedProduct as $related)
 
                     <div class="product-item bg-light position-relative">
-                        <a href="{{ route('product.detail',$related->id) }}">
+                        <div class="">
+                            <a href="{{ route('product.detail',$related->id) }}">
                             <div class="product-img position-relative overflow-hidden">
                                 <img class="img-fluid w-100" src="{{ asset('storage/'. $related->image) }}" alt="">
-                                <div class="product-action">
-                                </div>
                             </div>
                             <div class="text-center py-4">
                                 <a class="h6 text-decoration-none text-truncate" href="#">{{ $related->title }}</a>
@@ -99,9 +98,8 @@
                                     <small>(99)</small>
                                 </div>
                             </div>
-                        </a>
-                        <button class="btn btn-outline-dark btn-square cart-button "
-                            wire:click="addCart({{ $related->id }})"><i class="fa fa-shopping-cart"></i></button>
+                        </a>            
+                    </div>
                     </div>
 
                     @endforeach

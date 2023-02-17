@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreLoginRequest;
 use App\Mail\LoginMail;
 use App\Models\BanList;
-use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class LoginController extends Controller
@@ -18,38 +18,45 @@ class LoginController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
-    
-    public function __construct()
-    {
-        // $this->middleware('guest')->except('logout');
-        // $this->middleware('guest:admin')->except('logout');
-    }
 
     public function showAdminLoginForm()
     {
-        return view('auth.login', ['route' => route('admin.login-view'), 'title'=>'Admin']);
+        return view('auth.login', ['route' => route('admin.login-view'), 'title' => 'Admin']);
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \App\Http\Requests\StorelotinRequest  $request
+     * @return route('login.create')
+     */
     public function adminLogin(StoreLoginRequest $request)
     {
-        // $this->validate($request, [
-        //     'email'   => 'required|email',
-        //     'password' => 'required|min:6'
-        // ]);
         $user_data = array(
             'email' => $request->email,
             'password' => $request->password,
         );
-
         $input_data = Auth::guard('admin')->attempt($user_data);
-       if($input_data){
-        return  redirect()->intended('/dashboard');
-       }
-       dd($input_data);
-        return back()->withInput($request->only('email', 'remember'));
+        if ($input_data) {
+            Mail::to(Auth::guard('admin')->user()->email)
+            ->send(new LoginMail());
+            return redirect()->intended('/dashboard');
+        }
+        
+        return back()->withInput($request->only('email', 'remember'))->with('status', 'email and password is incorrect');
     }
 
-
+    /**
+     * Remove the specified sesion.
+     *
+     * @param  \App\Models\User  $user
+     * @return route('index)
+     */
+    public function adminLogout()
+    {
+        Auth::guard('admin')->logout();
+        return redirect()->route('index');
+    }
 
     /**
      * @return view('auth.login)

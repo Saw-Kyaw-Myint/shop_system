@@ -16,9 +16,9 @@ class IsLogin
      */
     public function handle(Request $request, Closure $next)
     {
-        if(auth()->user()){
-           return back();
-        }
+        // if( auth()->guard('admin')->check()){
+        //    return back();
+        // }
         
         return $next($request);
     }

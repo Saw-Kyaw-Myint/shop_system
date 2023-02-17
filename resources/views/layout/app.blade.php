@@ -32,8 +32,8 @@
                     <span class="badge badge-danger navbar-badge">2</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    <a href="{{ route('logout') }}" class="dropdown-item d-flex align-items-center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-label="Profile"><circle cx="12" cy="7" r="4.5" stroke="currentColor"></circle><path d="M3.5 21.5v-4.34C3.5 15.4 7.3 14 12 14s8.5 1.41 8.5 3.16v4.34" stroke="currentColor" stroke-linecap="round"></path></svg> <span class="mt-2">Logout</span></a>
-                    <a href="{{ route('index') }}" class="dropdown-item"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-label="Stories"><path fill-rule="evenodd" clip-rule="evenodd" d="M4 2.75c0-.41.34-.75.75-.75h14.5c.41 0 .75.34.75.75v18.5c0 .41-.34.75-.75.75H4.75a.75.75 0 0 1-.75-.75V2.75zM7 8.5c0-.28.22-.5.5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0 7c0-.28.22-.5.5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zM7 12c0-.28.22-.5.5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 7 12z" fill="currentColor"></path></svg><span class=" mt-2">User Page</span> </a>
+                    <a href="{{ route('adminLogout') }}" class="dropdown-item d-flex align-items-center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-label="Profile"><circle cx="12" cy="7" r="4.5" stroke="currentColor"></circle><path d="M3.5 21.5v-4.34C3.5 15.4 7.3 14 12 14s8.5 1.41 8.5 3.16v4.34" stroke="currentColor" stroke-linecap="round"></path></svg> <span class="mt-2">Logout</span></a>
+                    <a href="{{ route('orderProduct.index') }}" class="dropdown-item"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-label="Stories"><path fill-rule="evenodd" clip-rule="evenodd" d="M4 2.75c0-.41.34-.75.75-.75h14.5c.41 0 .75.34.75.75v18.5c0 .41-.34.75-.75.75H4.75a.75.75 0 0 1-.75-.75V2.75zM7 8.5c0-.28.22-.5.5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0 7c0-.28.22-.5.5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zM7 12c0-.28.22-.5.5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 7 12z" fill="currentColor"></path></svg><span class=" mt-2">order</span> </a>
                 </div>
             </li>
             <!-- Notifications Dropdown Menu -->
@@ -64,7 +64,7 @@
                     alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">{{ auth()->user()->name }}</a>
+                <a href="#" class="d-block">{{ auth()->guard('admin')->user()->name }}</a>
             </div>
         </div>
 

@@ -7,7 +7,12 @@
 </head>
 <body>
 	<div class="main">
-		<a href="{{ route('register.create') }}" class="crop">X</a>  	
+		<a href="{{ route('register.create') }}" class="crop">X</a> 
+		@isset($route)
+		<a href="{{ route('register.create') }}" class="admin-route">User</a>
+		@else
+		<a href="{{ route('admin.register-view') }}" class="admin-route">Admin</a>
+		@endisset 	
 		<input type="checkbox" id="chk" aria-hidden="true">
 	<center>
 			<div class="signup">
@@ -39,9 +44,14 @@
 				</form>
 			
 			</div>
-			<div class="login">
-					<label for="chk" aria-hidden="true"><a href="{{ route('login.create') }}">Login</a></label>
-			</div>
+			@if ($errors->any())
+				
+			@else
+			<div class="login ">
+				<label for="chk" aria-hidden="true"><a href="{{ route('login.create') }}">Login</a></label>
+		</div>
+			@endif
+			
 	</div>
 </center>
 </body>

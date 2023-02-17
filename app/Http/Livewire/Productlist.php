@@ -10,8 +10,8 @@ use RealRashid\SweetAlert\Facades\Alert;
 class Productlist extends Component
 {
     public $products, $latestProducts, $categories, $searchValue;
-    protected $listener = ['productList' => 'index'];
-    protected $listeners = ['productAdd' => 'addToCart'];
+    protected $listeners = ['productSearch' => 'index'];
+    protected $listener = ['productAdd' => 'addToCart'];
     /**
      * @return respone
      */
@@ -29,7 +29,8 @@ class Productlist extends Component
     public function render()
     {
         $category=session()->get('category');
-        if($category){
+        
+        if($category !=null){
             $this->search($category);
         }
 
@@ -49,9 +50,7 @@ class Productlist extends Component
 
     public function index($request)
     {
-        // dd($request);
         $this->products = Product::Search($request)->get();
-        // dd($this->products);
         if ((strlen($request)) == 0) {
             $this->searchValue = $request;
         } else {

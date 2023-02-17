@@ -18,7 +18,12 @@
 	</div>
 	@endif
 	<div class="main">  	
-		<a href="{{ route('login.create') }}" class="crop">X</a>  	
+		<a href="{{ route('login.create') }}" class="crop">X</a>  
+		@isset($route)
+		<a href="{{ route('login.create') }}" class="admin-route">User</a>
+		@else
+		<a href="{{ route('admin.login-view') }}" class="admin-route">Admin</a>
+		@endisset
 		<input type="checkbox" id="chk" aria-hidden="true">
 			<div class="signup">
 				<center>

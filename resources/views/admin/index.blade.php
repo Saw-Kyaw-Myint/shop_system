@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+
+ <!DOCTYPE html>
 <html>
 
 <head>
@@ -38,7 +39,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Dashboard {{ Auth::guard('admin')->user() }}</h1>
+                            <h1 class="m-0 text-dark">Dashboard </h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -115,7 +116,7 @@
                                 <div class="icon">
                                     <i class="ion ion-pie-graph"></i>
                                 </div>
-                                <a href="{{ $totalCategory }}" class="small-box-footer">More info <i
+                                <a href="{{ route('category.index') }}" class="small-box-footer">More info <i
                                         class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
@@ -191,7 +192,7 @@
 
             <div class="row">
                 <!-- right col (We are only adding the ID to make the widgets sortable)-->
-                <section class="col-lg-5 connectedSortable">
+                <section class="col-lg-7 connectedSortable">
                     <!-- /.card -->
                     <!-- /.card -->
 
@@ -360,4 +361,4 @@
 @livewireScripts
 </body>
 
-</html>
+</html> 
